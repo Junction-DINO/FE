@@ -10,7 +10,7 @@ import Example from './pages/exmaple';
 import Example2 from './pages/example2';
 
 const pageRoutes = {
-  main: '/',
+  main: 'FE/',
   example: '/example',
   example2: '/example2',
 };
