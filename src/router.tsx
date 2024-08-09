@@ -15,7 +15,7 @@ const pageRoutes = {
   main: '/',
   example: '/example',
   example2: '/example2',
-  login : '/login'
+  login : '/login',
   camera: '/camera',
 };
 
