@@ -9,12 +9,14 @@ import { Toaster } from './components/ui/toaster';
 import Example from './pages/exmaple';
 import Example2 from './pages/example2';
 import Login from './pages/login';
+import ImageClassifier from './pages/camera';
 
 const pageRoutes = {
   main: '/',
   example: '/example',
   example2: '/example2',
   login : '/login'
+  camera: '/camera',
 };
 
 const CommonLayout = () => (
@@ -47,6 +49,15 @@ const router = createBrowserRouter([
     element: <CommonLayout />,
     children: [
       { path: pageRoutes.example2, element: <Example2 />, errorElement: <ErrorPage /> },
+
+      { path: '*', element: <NotFoundPage /> },
+    ],
+  },
+  {
+    element: <CommonLayout />,
+    children: [
+
+      { path: pageRoutes.camera, element: <ImageClassifier />, errorElement: <ErrorPage /> },
 
       { path: '*', element: <NotFoundPage /> },
     ],
