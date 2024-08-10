@@ -5,9 +5,10 @@ import JoinText from "./JoinText";
 import DownVector from "@/assets/Join/DownVector.svg";
 import UpVector from "@/assets/Join/UpVector.svg";
 import useJoinStore from "@/store/JoinStore";
+import Back from "@/assets/Join/Back.svg";
 
 const SetBabyInfo = () => {
-  const { nickname, babyname, setBabyname, dueDate, setDueDate, monthAfterBirth, setMonthAfterBirth } = useJoinStore();
+  const { nickname, babyname, setBabyname, dueDate, setDueDate, monthAfterBirth, setMonthAfterBirth, prevPage } = useJoinStore();
 
   const Words = [
     { text: 'Please enter ' },
@@ -45,7 +46,12 @@ const SetBabyInfo = () => {
   return (
     <Layout>
       <div className="flex flex-col h-screen px-7">
-        <div className="mt-[25%] mb-[120px]">
+
+        <div className="mt-[10%] mb-[120px]">
+          <img
+            className='cursor-pointer mb-[15%] '
+            onClick={prevPage}
+            src={Back} alt='x' />
           {Words.map((words, index) => (
             <JoinText key={index} text={words.text} align='' />
           ))}

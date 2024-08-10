@@ -1,4 +1,4 @@
-type NutrientType = 'carbohydrate' | 'protein' | 'fat';
+type NutrientType = 'carbohydrate' | 'protein' | 'fat' | string;
 
 export const calculateNutrientPercentage = (
   nutrientAmount: number | undefined,
