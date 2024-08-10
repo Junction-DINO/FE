@@ -8,6 +8,7 @@ import GridDiv from '@/components/home/GridDiv';
 import getPregnancyCareText from '@/utils/getPregnancyCareText/getPregnancyCareText';
 import { getUserData } from '@/services/UserAPI';
 import calculatePregnancyWeeks from '@/utils/calculatePregnancyWeeks/calculatePregnancyWeeks';
+import { useNavigate } from 'react-router-dom';
 
 interface UserDataDTO {
   id: number; // 사용자 ID
@@ -20,6 +21,8 @@ interface UserDataDTO {
 export default function Home() {
 
   const [userData, setUserData] = useState<UserDataDTO>(); // 사용자 데이터 상태를 정의
+  
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -29,8 +32,12 @@ export default function Home() {
           const data = await getUserData(token); // 사용자 데이터 가져오기
           setUserData(data.data); // 가져온 데이터로 상태 업데이트
         } catch (error) {
+          navigate('/login')
           console.error('사용자 데이터 가져오기 실패:', error);
         }
+      } else{
+        navigate('/login')
+
       }
     };
 
