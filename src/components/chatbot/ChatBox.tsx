@@ -2,11 +2,15 @@ import React, { useState, useRef, useEffect } from 'react';
 import { sendMessageToOpenAI } from '@/services/openai';
 import { ReactTyped } from 'react-typed';
 import Spinner from '@/assets/Spinner.gif';
-import ChatbotButton from '@/assets/ChatbotButton.svg';
+import ChatbotHome from '@/assets/ChatbotHome.svg';
 import ChatbotSendButton from '@/assets/ChatboxSendButton.svg';
 import { encodeHTML } from '@/hooks/useEncodeHTML';
 
-const Chatbot: React.FC = () => {
+type ChatbotProps = {
+  position?: 'default' | 'bottom-right';
+};
+
+const Chatbot: React.FC<ChatbotProps> = ({ position = 'default' }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [messages, setMessages] = useState<{ sender: string; text: string }[]>([]);
@@ -109,10 +113,15 @@ const Chatbot: React.FC = () => {
     scrollToBottom();
   }, [messages]);
 
+  const buttonPositionClass =
+    position === 'bottom-right'
+      ? 'fixed bottom-5 left-1/2 transform translate-x-[250px]' // 중앙에서 오른쪽으로 이동
+      : 'absolute bottom-[-20px] left-[-20px]';
+
   return (
     <div className="relative">
-      <button onClick={openChatbot} className="absolute bottom-[-20px] left-[-20px]">
-        <img src={ChatbotButton} alt="Chatbot" className="w-14 h-14" />
+      <button onClick={openChatbot} className={`${buttonPositionClass} z-50`}>
+        <img src={ChatbotHome} alt="Chatbot" className="w-14 h-14" />
       </button>
 
       {isOpen && (
