@@ -31,4 +31,5 @@ export type NutritionDTO = {
   foodWeight: string;
   manufacturerName: string;
   providerName: string;
+  keyworkd?: string;
 };

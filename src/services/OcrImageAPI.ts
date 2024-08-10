@@ -1,29 +1,31 @@
-// import { api } from './client';
-// import { Base64ToBlob } from '@/utils/Base64ToBlob';
+import { api } from './client';
+import { Base64ToBlob } from '@/utils/Base64ToBlob';
 
-// type OCRImageDTO = {
-//   image: string;
-// };
+type OCRImageDTO = {
+  ocrImage: string;
+};
 
-// export const postOCRImage = async (OcrData: OCRImageDTO) => {
-//   const formData = new FormData();
-//   const url = `${import.meta.env.VITE_REACT_APP_SERVER_JK}/api/v1/머시기머시기`;
+export const postOCRImage = async (OcrData: OCRImageDTO) => {
+  const formData = new FormData();
+  const url = `${import.meta.env.VITE_REACT_APP_SERVER}/api/v1/search/ocr`;
 
-//   if (OcrData.profileImage && OcrData.profileImage.includes(',')) {
-//     const contentType = OcrData.profileImage.split(';')[0].split(':')[1];
-//     const blob = Base64ToBlob(OcrData.profileImage, contentType);
-//     formData.append('profileImage', blob, 'profileImage.jpg'); // Adjust file name as needed
-//   }
+  if (OcrData.ocrImage && OcrData.ocrImage.includes(',')) {
+    const contentType = OcrData.ocrImage.split(';')[0].split(':')[1];
+    const blob = Base64ToBlob(OcrData.ocrImage, contentType);
+    formData.append('ocrImage', blob, 'ocrImage.jpg'); // Adjust file name as needed
+  } else {
+    throw new Error('Invalid image data');
+  }
 
-//   try {
-//     const response = await api.patch(url, formData, {
-//       headers: {
-//         'Content-Type': 'multipart/form-data',
-//       },
-//     });
-//     return response.data;
-//   } catch (error) {
-//     console.error('Error patching user info data:', error);
-//     throw error;
-//   }
-// };
+  try {
+    const response = await api.post(url, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error posting OCR image data:', error);
+    throw error;
+  }
+};
