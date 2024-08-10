@@ -104,7 +104,7 @@ const Chatbot: React.FC = () => {
         >
           <div
             ref={chatbotRef}
-            className={`w-[430px] h-[700px] md:h-[800px] bg-white shadow-lg border border-gray-300 rounded-t-lg flex flex-col transform ${
+            className={`w-[430px] h-3/4 md:h-3/4 bg-white shadow-lg border border-gray-300 rounded-t-lg flex flex-col transform ${
               isAnimating ? 'animate-slide-down' : 'animate-slide-up'
             }`}
             onClick={(e) => e.stopPropagation()} // 내부 콘텐츠 클릭 시 이벤트 전파 차단
