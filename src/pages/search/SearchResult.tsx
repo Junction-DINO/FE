@@ -6,6 +6,7 @@ import { NutritionDTO } from '@/type/product';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import NutritionCard from './NutritionCard';
+import Chatbot from '@/components/chatbot/ChatBox';
 
 const SearchResults = () => {
   const { query } = useParams<{ query: string }>();
@@ -58,6 +59,7 @@ const SearchResults = () => {
               <p className="text-center text-lg">No results found for "{query}".</p>
             )}
           </div>
+          <Chatbot position="bottom-right" />
         </div>
       </div>
     </Layout>
