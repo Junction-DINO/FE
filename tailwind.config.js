@@ -8,7 +8,6 @@ module.exports = {
     './src/**/*.{ts,tsx}',
   ],
   mode: 'jit',
-  prefix: '',
   theme: {
     container: {
       center: true,
@@ -36,26 +35,20 @@ module.exports = {
         customMint: '#5ECDC7',
         customPink: '#EF8491',
         customYellow: '#F2D077',
+        customGrey: '#CECECE', // 수정된 색상 키
       },
       boxShadow: {
         customShadow: '0px 0px 20px -8px rgba(0,0,0,0.2)',
+        GridDiv: '0px 0px 28px -12px rgba(0, 0, 0, 0.16)',
       },
-        costomMint : '#5ECDC7',
-        customPink : '#EF8491',
-        custionGrey : '#CECECE'
-      }, 
       fontSize: {
         size24: '24px', // 커스텀 폰트 사이즈 추가
       },
       fontWeight: {
-        bold: '700', // 또는 'bold'
-        semibold: '600', // 수정
-        medium: '500', // 수정
-    },
-    boxShadow: {
-      'GridDiv': '0px 0px 28px -12px rgba(0, 0, 0, 0.16)',
-    },
-    
+        bold: '700',
+        semibold: '600',
+        medium: '500',
+      },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
