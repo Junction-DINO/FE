@@ -45,7 +45,6 @@ export default function Home() {
   }, []); // 컴포넌트가 마운트될 때 한 번만 실행
 
   const dueDateOrMonthAfterBirth = userData?.dueDate || userData?.monthAfterBirth  || "기본값"; // 기본값 설정
-
   return (
     <div className="flex-1 flex-col w-full flex justify-center h-auto scrollbar-hide overflow-y-auto">
       <main className="max-w-[430px] w-full bg-[#FBFBFB] relative mx-auto pb-[180px] ">

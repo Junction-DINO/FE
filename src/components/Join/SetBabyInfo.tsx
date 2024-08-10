@@ -7,8 +7,10 @@ import UpVector from "@/assets/Join/UpVector.svg";
 import useJoinStore from "@/store/JoinStore";
 import Back from "@/assets/Join/Back.svg";
 import { postUserData } from "@/services/UserAPI";
+import { useNavigate } from "react-router-dom";
 
 const SetBabyInfo = () => {
+  const navigate = useNavigate();
   const token = localStorage.getItem('accessToken');
   const { nickname, babyname, setBabyname, dueDate, setDueDate, monthAfterBirth, setMonthAfterBirth, prevPage } = useJoinStore();
 
@@ -35,6 +37,7 @@ const handleNext = async () => {
     if (nickname && babyname && (dueDate.length === 10 || monthAfterBirth)) {
       try {
         const response = await postUserData(String(token), nickname, babyname, monthAfterBirth,dueDate );
+        navigate('/')
         console.log('사용자 데이터 생성 성공:', response);
         // 다음 단계로 이동하거나 성공 메시지 표시
       } catch (error) {
