@@ -14,26 +14,35 @@ const NutritionCard = ({ product }: NutritionCardProps) => {
   return (
     <div
       onClick={handleClick}
-      className="cursor-pointer border-b py-4 px-4 bg-white rounded-lg shadow-md mb-2"
+      className="cursor-pointer py-4 px-4 bg-white rounded-lg border-b-2 mb-2"
     >
       <div className="flex justify-between items-center">
-        <h3 className="font-semibold text-gray-800">{product.foodName}</h3>
-        <span className="text-gray-400">{product.manufacturerName}</span>
+        <h3 className="font-semibold text-black">{product.foodName}</h3>
+        <span className="text-customGrey">{product.manufacturerName}</span>
       </div>
-      <div className="text-gray-400 mt-1 text-sm">
+      <div className="text-customGrey mt-1 text-sm">
         {product.energyKcal}kcal ({product.foodWeight})
       </div>
-      <div className="flex space-x-4 mt-2 text-sm">
-        <span className="text-customYellow">
-          carbohydrate • {product.carbohydrateG}g (
-          {calculateNutrientPercentage(product.carbohydrateG, 'carbohydrate')}%)
+      <div className="flex space-x-4 mt-2 text-[13px] flex-nowrap">
+        <span className="text-customYellow whitespace-nowrap">
+          carbohydrate •
+          <span className="text-customGrey">
+            {product.carbohydrateG}g (
+            {calculateNutrientPercentage(product.carbohydrateG, 'carbohydrate')}%)
+          </span>
         </span>
-        <span className="text-customPink">
-          protein • {product.proteinG}g ({calculateNutrientPercentage(product.proteinG, 'protein')}
-          %)
+        <span className="text-customYellow whitespace-nowrap">
+          protein •{' '}
+          <span className="text-customGrey">
+            {product.proteinG}g ({calculateNutrientPercentage(product.proteinG, 'protein')}
+            %)
+          </span>
         </span>
-        <span className="text-customMint">
-          fat • {product.fatG}g ({calculateNutrientPercentage(product.fatG, 'fat')}%)
+        <span className="text-customYellow whitespace-nowrap">
+          fat •{' '}
+          <span className="text-customGrey">
+            {product.fatG}g ({calculateNutrientPercentage(product.fatG, 'fat')}%)
+          </span>
         </span>
       </div>
     </div>

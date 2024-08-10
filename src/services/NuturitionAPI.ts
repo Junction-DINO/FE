@@ -1,6 +1,5 @@
 import { NutritionDTO } from '@/type/product';
 import { api } from './client';
-import axios from 'axios';
 
 interface GetTermsDataParams {
   query: string;
@@ -9,9 +8,10 @@ interface GetTermsDataParams {
 export const getNutritionData = async ({ query }: GetTermsDataParams): Promise<NutritionDTO[]> => {
   const url = `https://e44f-211-168-232-133.ngrok-free.app/api/v1/search?q=${query}`;
   try {
-    const { data } = await axios.get<{ data: NutritionDTO[] }>(url, {
+    const { data } = await api.get<{ data: NutritionDTO[] }>(url, {
       headers: {
         'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': true,
       },
     });
 
