@@ -1,5 +1,4 @@
 import { delay, http, HttpResponse } from 'msw';
-import { MOCK_PRODUCTS } from '@/fixture/product';
 
 export const handlers = [
   http.get('/error', async () => {
@@ -10,10 +9,6 @@ export const handlers = [
       },
       { status: 400 },
     );
-  }),
-
-  http.get(`/api/v1/search`, () => {
-    return HttpResponse.json({ ...MOCK_PRODUCTS });
   }),
 
   // http.post('/personalInfo', () => {
