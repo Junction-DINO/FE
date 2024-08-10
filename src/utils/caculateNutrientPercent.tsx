@@ -1,6 +1,10 @@
 type NutrientType = 'carbohydrate' | 'protein' | 'fat';
 
-export const calculateNutrientPercentage = (nutrientAmount: number | undefined, nutrientType: NutrientType) => {
+
+export const calculateNutrientPercentage = (
+  nutrientAmount: number | undefined,
+  nutrientType: NutrientType,
+) => {
   let dailyValue: number;
 
   switch (nutrientType) {

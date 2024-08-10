@@ -2,21 +2,34 @@ import React, { useState, useRef, useEffect } from 'react';
 import { sendMessageToOpenAI } from '@/services/openai';
 import { ReactTyped } from 'react-typed';
 import Spinner from '@/assets/Spinner.gif';
+import ChatbotButton from '@/assets/ChatbotButton.svg';
+import ChatbotSendButton from '@/assets/ChatboxSendButton.svg';
+import { encodeHTML } from '@/hooks/useEncodeHTML';
 
 const Chatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
   const [messages, setMessages] = useState<{ sender: string; text: string }[]>([]);
   const [input, setInput] = useState('');
+  const [keyboardHeight, setKeyboardHeight] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const chatbotRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const toggleChatbot = () => {
-    setIsOpen(!isOpen);
-    if (!isOpen && inputRef.current) {
+  const openChatbot = () => {
+    setIsAnimating(false);
+    setIsOpen(true);
+    if (inputRef.current) {
       inputRef.current.focus();
     }
+  };
+
+  const closeChatbot = () => {
+    setIsAnimating(true);
+    setTimeout(() => {
+      setIsOpen(false);
+    }, 500); // 애니메이션과 동일한 시간
   };
 
   const scrollToBottom = () => {
@@ -63,10 +76,27 @@ const Chatbot: React.FC = () => {
       handleSendMessage();
     }
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      // 키보드가 열릴 때 뷰포트 높이가 줄어들므로 이를 감지
+      const currentHeight = window.innerHeight;
+      const initialHeight = window.outerHeight;
+      setKeyboardHeight(initialHeight - currentHeight);
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // 초기 실행 시에도 높이 설정
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (chatbotRef.current && !chatbotRef.current.contains(e.target as Node)) {
-        setIsOpen(false);
+        closeChatbot();
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -81,71 +111,86 @@ const Chatbot: React.FC = () => {
 
   return (
     <div className="relative">
-      <button
-        onClick={toggleChatbot}
-        className="fixed bottom-4 right-4 bg-blue-500 text-white p-3 rounded-full shadow-lg"
-      >
-        {isOpen ? '닫기' : '챗봇 열기'}
+      <button onClick={openChatbot} className="absolute bottom-[-20px] left-[-20px]">
+        <img src={ChatbotButton} alt="Chatbot" className="w-14 h-14" />
       </button>
 
       {isOpen && (
         <div
-          ref={chatbotRef}
-          className="fixed bottom-16 right-4 w-full h-[400px] md:h-[500px] max-w-xs bg-white shadow-lg border border-gray-300 rounded-lg flex flex-col"
+          className={`fixed z-50 inset-0 flex justify-center items-end bg-black bg-opacity-50`}
+          onClick={closeChatbot}
         >
-          <div className="flex-1 p-4 overflow-y-auto">
-            {messages.map((message, index) => (
-              <div
-                key={index}
-                className={`mb-2 ${message.sender === 'user' ? 'text-right' : 'text-left'}`}
-              >
-                <span
-                  className={`inline-block p-2 rounded-lg ${message.sender === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}
+          <div
+            ref={chatbotRef}
+            className={`w-[430px] h-[calc(100vh-${keyboardHeight}px)] md:h-[800px] bg-customChatBackground shadow-lg border border-gray-300 rounded-t-lg flex flex-col transform ${
+              isAnimating ? 'animate-slide-down' : 'animate-slide-up'
+            }`}
+            onClick={(e) => e.stopPropagation()} // 내부 콘텐츠 클릭 시 이벤트 전파 차단
+            style={{ paddingBottom: keyboardHeight }} // 키보드 높이만큼 패딩 추가
+          >
+            <div className="flex-1 p-4 overflow-y-auto">
+              {messages.map((message, index) => (
+                <div
+                  key={index}
+                  className={`mb-2 ${message.sender === 'user' ? 'text-right' : 'text-left'}`}
                 >
-                  {message.sender === 'bot' ? (
-                    <>
-                      <ReactTyped
-                        strings={[message.text]}
-                        typeSpeed={40}
-                        showCursor={false}
-                        onStringTyped={scrollToBottom} // 각 문자열이 타이핑될 때마다 스크롤
-                        onComplete={scrollToBottom} // 타이핑이 완료되면 스크롤
-                      />
-                      {isLoading && (
-                        <img src={Spinner} alt="Loading..." className="inline-block ml-2 w-4 h-4" />
-                      )}
-                    </>
-                  ) : (
-                    message.text
-                  )}
-                </span>
+                  <span
+                    className={`inline-block p-2 ${
+                      message.sender === 'user'
+                        ? 'bg-customMint text-white p-3 px-5 rounded-3xl rounded-br-none'
+                        : 'bg-white text-customMint p-3 px-5 rounded-3xl rounded-bl-none '
+                    }`}
+                  >
+                    {message.sender === 'bot' ? (
+                      <>
+                        <ReactTyped
+                          strings={[encodeHTML(message.text)]}
+                          typeSpeed={40}
+                          showCursor={false}
+                          onStringTyped={scrollToBottom}
+                          onComplete={scrollToBottom}
+                        />
+                        {isLoading && (
+                          <img
+                            src={Spinner}
+                            alt="Loading..."
+                            className="inline-block ml-2 w-4 h-4"
+                          />
+                        )}
+                      </>
+                    ) : (
+                      message.text
+                    )}
+                  </span>
+                </div>
+              ))}
+              {isLoading && (
+                <div className="text-left mb-2">
+                  <span className="inline-block p-2 rounded-lg text-black">
+                    <img src={Spinner} alt="Loading..." className="inline-block w-4 h-4" />
+                  </span>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+            <div className="relative w-full mt-1">
+              <div className="mx-4">
+                <input
+                  type="text"
+                  value={input}
+                  onChange={handleInputChange}
+                  onKeyDown={handleKeyDown}
+                  className="w-full p-4 pr-10 border rounded-full"
+                  ref={inputRef}
+                />
+                <button
+                  onClick={handleSendMessage}
+                  className="absolute right-10 top-1/2 transform -translate-y-1/2"
+                >
+                  <img src={ChatbotSendButton} alt="Send" className="w-5 h-5" />
+                </button>
               </div>
-            ))}
-            {isLoading && (
-              <div className="text-left mb-2">
-                <span className="inline-block p-2 rounded-lg text-black">
-                  <img src={Spinner} alt="Loading..." className="inline-block w-4 h-4" />
-                </span>
-              </div>
-            )}
-            <div ref={messagesEndRef} /> {/* 스크롤 끝을 표시하는 div */}
-          </div>
-          <div className="p-2 border-t border-gray-300">
-            <input
-              type="text"
-              value={input}
-              onChange={handleInputChange}
-              onKeyDown={handleKeyDown}
-              className="w-full p-2 border rounded-lg"
-              placeholder="메시지를 입력하세요..."
-              ref={inputRef}
-            />
-            <button
-              onClick={handleSendMessage}
-              className="mt-2 w-full bg-blue-500 text-white p-2 rounded-lg"
-            >
-              전송
-            </button>
+            </div>
           </div>
         </div>
       )}

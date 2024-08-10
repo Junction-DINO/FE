@@ -37,6 +37,7 @@ module.exports = {
         customYellow: '#F2D077',
         customGrey: '#CECECE', // 수정된 색상 키
         customBackground: '#F2F2F2',
+        customChatBackground: '#EAEAEA',
       },
       boxShadow: {
         customShadow: '0px 0px 20px -8px rgba(0,0,0,0.2)',
@@ -64,10 +65,20 @@ module.exports = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
         },
+        'slide-up': {
+          '0%': { transform: 'translateY(100%)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        'slide-down': {
+          '0%': { transform: 'translateY(0)', opacity: '1' },
+          '100%': { transform: 'translateY(100%)', opacity: '0' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'slide-up': 'slide-up 0.5s ease-out forwards',
+        'slide-down': 'slide-down 0.5s ease-out forwards',
       },
     },
     fontFamily: {
