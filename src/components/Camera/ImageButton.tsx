@@ -55,7 +55,7 @@ const ImageSelectButton = () => {
 
   return (
     <div className="mx-2">
-      <div className="flex w-full justify-center items-center space-x-2 mt-10 bg-customYellow rounded-3xl p-4 py-7 shadow-custom">
+      <div className="flex w-full justify-center items-center space-x-2 mt-3 bg-customYellow rounded-3xl p-4 py-7 shadow-custom">
         <div className="inline-flex flex-1">
           {/* 이미지 불러오기 버튼 */}
           <div className="flex-1 flex justify-center items-center">

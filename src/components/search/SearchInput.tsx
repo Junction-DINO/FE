@@ -21,7 +21,7 @@ export function SearchInput() {
     navigate(`/search/${query}`);
   };
   return (
-    <div className="flex w-full items-center space-x-2 mt-10 shadow-customShadow">
+    <div className="flex w-full items-center space-x-2 shadow-customShadow">
       <form onSubmit={handleSubmit(onSubmit)} className="relative flex w-full mx-4">
         <Input
           type="search"
