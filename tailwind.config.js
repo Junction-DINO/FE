@@ -33,7 +33,8 @@ module.exports = {
           foreground: 'hsl(var(--secondary-foreground))',
         },
         customBrown: '#675143',
-        costomMint : '#5ECDC7'
+        costomMint : '#5ECDC7',
+        customPink : '#EF8491',
       }, 
       fontSize: {
         size24: '24px', // 커스텀 폰트 사이즈 추가

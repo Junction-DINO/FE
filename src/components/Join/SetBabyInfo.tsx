@@ -34,7 +34,7 @@ const SetBabyInfo = () => {
                 </div>
                 <div className="">
                     <p className={`text-costomMint`}>What’s the baby’s name</p>
-                    <JoinInput placeholder="name" />
+                    {/* <JoinInput placeholder="name" /> */}
                 </div>
 
 
@@ -65,9 +65,9 @@ const SetBabyInfo = () => {
                         </div>
                     )}
                 </div>
-                <JoinInput 
-                    placeholder="deu date"
-                    />
+                {/* <JoinInput 
+                    placeholder="due date"
+                    /> */}
             </div>
         </Layout>
     );
