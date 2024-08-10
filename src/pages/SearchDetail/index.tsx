@@ -13,6 +13,7 @@ import Hr from '@/components/SearchDetail/Hr';
 
 import Back from '@/assets/SearchDetail/Back.svg'
 import { useNavigate } from 'react-router-dom';
+
 interface SearchDetailDTO {
   foodCode: string;
   foodName: string;
@@ -85,7 +86,7 @@ const SearchDetail = () => {
 
   const dangerList = ['vitaminAμgRAE', 'vitaminDμg', 'ironMg', 'sodiumMg', 'saturatedFattyAcidG', 'transFattyAcidG'];
   const safetyList = ['proteinG', 'ironMg', 'vitaminCMg', 'dietaryFiberG', 'potassiumMg'];
-  const unuseList = ['foodCode', 'foodName', 'nutritionStandardAmount']
+  const unuseList = ['foodCode', 'foodName', 'nutritionStandardAmount','servingSizeReference','foodWeight','energyKcal']
   const calculateFoodIndex = (data: SearchDetailDTO) => {
     const dangerList = ['vitaminAμgRAE', 'vitaminDμg', 'ironMg', 'sodiumMg', 'saturatedFattyAcidG', 'transFattyAcidG'];
     const safetyList = ['proteinG', 'ironMg', 'vitaminCMg', 'dietaryFiberG', 'potassiumMg'];
@@ -135,6 +136,7 @@ const SearchDetail = () => {
   };
 
   const navigate = useNavigate()
+
   const handleClickBackButton = () => {
     navigate(-1);
   };
@@ -165,26 +167,28 @@ const SearchDetail = () => {
             </div>
             <div className='flex space-x-1 ml-4'>
               <span className='text-[#FFC01F]'>carbohydrates</span>
-              <img src={Dot} alt='x' />
-              {dummyData.carbohydrateG} ({calculateNutrientPercentage(dummyData?.carbohydrateG, 'carbohydrate')}%)
+              <img className='mx-1' src={Dot} alt='x' />
+              <span className='text-customGrey'>{dummyData.carbohydrateG} ({calculateNutrientPercentage(dummyData?.carbohydrateG, 'carbohydrate')}%)</span>
             </div>
 
             <div className='flex space-x-1 ml-4'>
-              <span className='text-[#FFC01F]'>protein</span>
-              <img src={Dot} alt='x' />
-              {dummyData.proteinG} ({calculateNutrientPercentage(dummyData?.proteinG, 'protein')}%)
+              <span className='text-[#FFC01F] '>protein</span>
+              <img className='mx-1' src={Dot} alt='x' />
+              <span className='text-customGrey'>{dummyData.proteinG} ({calculateNutrientPercentage(dummyData?.proteinG, 'protein')}%)</span>
             </div>
 
             <div className='flex space-x-1 ml-4'>
               <span className='text-[#FFC01F]'>fat</span>
-              <img src={Dot} alt='x' />
-              {dummyData.fatG} ({calculateNutrientPercentage(dummyData?.fatG, 'fat')}%)
+              <img className='mx-1' src={Dot} alt='x' />
+              <span className='text-customGrey'> {dummyData.fatG} ({calculateNutrientPercentage(dummyData?.fatG, 'fat')}%)</span>
             </div>
             <button className={`absolute bottom-2 right-2 
              ${calculateFoodIndex(dummyData) < 0 ? 'bg-[#f48187]' :
                 calculateFoodIndex(dummyData) === 0 ? 'bg-[#898A8D]' :
                   'bg-[#49C09C]'} 
-  rounded-[8px] px-2 py-1 text-[#fff] flex items-center`}>
+                rounded-[8px] px-2 py-1 text-[#fff] flex items-center`}
+                onClick={() => navigate('/score')}
+                >
               <span className='text-sm font-bold text-[16px]'>Score : {calculateFoodIndex(dummyData)}</span>
               <img src={Ask} alt='' className='w-5 h-5 ml-1' />
             </button>
@@ -194,7 +198,6 @@ const SearchDetail = () => {
             <span className='text-[#F6D0D2]'>Cautionary</span>
             <span className='text-[#CECECE]'> Ingredient </span>
           </div>
-          <Hr />
           <ul>
             {dangerList.map((key) => {
               const value = dummyData[key as keyof SearchDetailDTO];
@@ -204,8 +207,8 @@ const SearchDetail = () => {
 
               return isHealthy && (
                 <>
-                  <li className='px-6 py-2' key={key}>
-                    <span className='text-[#F48187]'>{displayKey}</span> : <span> {value} </span> {unit}
+                  <li className='px-6 py-2 flex justify-between' key={key}>
+                    <span className='text-[#F48187]'>{displayKey}</span> <span> {value} {unit} </span> 
                   </li>
                   <Hr />
                 </>
@@ -227,8 +230,8 @@ const SearchDetail = () => {
 
               return isHealthy && (
                 <>
-                  <li className='px-6 py-2' key={key}>
-                    <span className='text-[#49C09C]'>{displayKey}</span> : <span> {value} </span> {unit}
+                  <li className='px-6 py-2 flex justify-between' key={key}>
+                    <span className='text-[#49C09C]'>{displayKey}</span> <span> {value} {unit}</span> 
                   </li>
                   <Hr />
                 </>
@@ -242,7 +245,6 @@ const SearchDetail = () => {
             <span className='text-[#CECECE]'>Other</span>
             <span className='text-[#CECECE]'> Ingredient </span>
           </div>
-          <Hr />
           <ul>
             {Object.entries(dummyData).map(([key, value]) => {
               const isDanger = dangerList.includes(key); // 위험 요소 확인
@@ -254,8 +256,8 @@ const SearchDetail = () => {
 
               return isExcluded && value !== 0 && (
                 <>
-                  <li className='px-6 py-2' key={key}>
-                    <span className='text-[#000]'>{displayKey}</span> : <span> {value} </span> {unit}
+                  <li className='px-6 py-2 flex justify-between' key={key}>
+                    <span className='text-[#000]'>{displayKey}</span>  <span> {value} {unit} </span> 
                   </li>
                   <Hr />
                 </>
