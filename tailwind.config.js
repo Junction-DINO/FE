@@ -33,9 +33,9 @@ module.exports = {
           foreground: 'hsl(var(--secondary-foreground))',
         },
         customBrown: '#675143',
-        costomMint : '#5ECDC7',
-        customPink : '#EF8491',
-      }, 
+        customMint: '#5ECDC7',
+        customPink: '#EF8491',
+      },
       fontSize: {
         size24: '24px', // 커스텀 폰트 사이즈 추가
       },
@@ -43,8 +43,8 @@ module.exports = {
         bold: '700', // 또는 'bold'
         semibold: '600', // 수정
         medium: '500', // 수정
-    },
-    
+      },
+
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
@@ -70,8 +70,5 @@ module.exports = {
       Roboto: ['Roboto', 'sans-serif'],
     },
   },
-  plugins: [
-    require('tailwindcss-animate'),
-    require('tailwind-scrollbar-hide'),
-  ],
+  plugins: [require('tailwindcss-animate'), require('tailwind-scrollbar-hide')],
 };
