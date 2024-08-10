@@ -20,7 +20,7 @@ const SearchResults = () => {
     staleTime: 1000 * 60 * 5,
     enabled: !!query,
   });
-  console.log(nutritionData);
+  // console.log(nutritionData);
   if (isLoading) {
     return (
       <Layout>
@@ -43,7 +43,7 @@ const SearchResults = () => {
 
   return (
     <Layout>
-      <div className="relative w-full h-screen overflow-hidden">
+      <div className="relative w-full min-h-screen overflow-hidden">
         <SearchInput mt="mt-10" placeholder={`Search results for "${query}"`} />
         <div className="bg-white mt-3 w-full h-full rounded-t-3xl">
           <h2 className="pt-5 text-center text-customGrey text-lg">
@@ -55,7 +55,7 @@ const SearchResults = () => {
                 <NutritionCard key={index} product={product} />
               ))
             ) : (
-              <p>No results found for "{query}".</p>
+              <p className="text-center text-lg">No results found for "{query}".</p>
             )}
           </div>
         </div>

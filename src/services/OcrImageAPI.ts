@@ -1,13 +1,24 @@
-import { api } from './client';
+import axios from 'axios';
 import { Base64ToBlob } from '@/utils/Base64ToBlob';
 
 type OCRImageDTO = {
   ocrImage: string;
 };
 
-export const postOCRImage = async (OcrData: OCRImageDTO) => {
+type OCRResponse = {
+  status: number;
+  code: string;
+  message: string;
+  data: {
+    id: number;
+    foodCode: string;
+    foodName: string;
+  }[];
+};
+
+export const postOCRImage = async (OcrData: OCRImageDTO): Promise<OCRResponse> => {
   const formData = new FormData();
-  const url = `${import.meta.env.VITE_REACT_APP_SERVER}/api/v1/search/ocr`;
+  const url = `https://e44f-211-168-232-133.ngrok-free.app/api/v1/search/ocr`;
 
   if (OcrData.ocrImage && OcrData.ocrImage.includes(',')) {
     const contentType = OcrData.ocrImage.split(';')[0].split(':')[1];
@@ -18,7 +29,7 @@ export const postOCRImage = async (OcrData: OCRImageDTO) => {
   }
 
   try {
-    const response = await api.post(url, formData, {
+    const response = await axios.post<OCRResponse>(url, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

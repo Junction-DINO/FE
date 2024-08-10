@@ -1,6 +1,5 @@
 type NutrientType = 'carbohydrate' | 'protein' | 'fat' | string;
 
-
 export const calculateNutrientPercentage = (
   nutrientAmount: number | undefined,
   nutrientType: NutrientType,
@@ -21,5 +20,7 @@ export const calculateNutrientPercentage = (
       throw new Error('Invalid nutrient type');
   }
 
+  // 계산 결과가 소수점 이하로 나올 수 있으므로 toFixed(2)로 소수점 2자리까지 반올림하여 문자열로 반환한 후,
+  // 다시 숫자로 변환합니다. (ex. 0.5g 단백질 = 1%가 됩니다.)
   return Math.round((Number(nutrientAmount) / dailyValue) * 100);
 };
