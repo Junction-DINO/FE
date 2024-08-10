@@ -2,19 +2,21 @@ import Layout from '@/components/layout/layout';
 import { SearchInput } from '@/components/search/SearchInput';
 import { getNutritionData } from '@/services/NuturitionAPI';
 
-import { Nutrition } from '@/type/product';
+import { NutritionDTO } from '@/type/product';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
+import NutritionCard from './NutritionCard';
 
 const SearchResults = () => {
   const { query } = useParams<{ query: string }>();
+
   const {
     data: nutritionData,
     error,
     isLoading,
-  } = useQuery<Nutrition[]>({
+  } = useQuery<NutritionDTO[]>({
     queryKey: ['nutritionData,', query],
-    queryFn: () => getNutritionData({ query: query || '', size: 10 }),
+    queryFn: () => getNutritionData({ query: query || '' }),
     staleTime: 1000 * 60 * 5,
     enabled: !!query,
   });
@@ -47,7 +49,15 @@ const SearchResults = () => {
           <h2 className="pt-5 text-center text-customGrey text-lg">
             Products searched by photos taken
           </h2>
-          <div className="p-4"></div>
+          <div className="mt-4 space-y-4">
+            {nutritionData && nutritionData.length > 0 ? (
+              nutritionData.map((product: NutritionDTO, index: number) => (
+                <NutritionCard key={index} product={product} />
+              ))
+            ) : (
+              <p>No results found for "{query}".</p>
+            )}
+          </div>
         </div>
       </div>
     </Layout>
