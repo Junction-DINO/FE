@@ -1,7 +1,7 @@
 const Redirect = () =>{
     return(
         <>
-            리다리엑트
+        리다리엑트
         </>
     )
 }
