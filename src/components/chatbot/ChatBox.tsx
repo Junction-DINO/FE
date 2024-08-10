@@ -11,7 +11,7 @@ const Chatbot: React.FC = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [messages, setMessages] = useState<{ sender: string; text: string }[]>([]);
   const [input, setInput] = useState('');
-
+  const [keyboardHeight, setKeyboardHeight] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const chatbotRef = useRef<HTMLDivElement>(null);
@@ -78,6 +78,22 @@ const Chatbot: React.FC = () => {
   };
 
   useEffect(() => {
+    const handleResize = () => {
+      // 키보드가 열릴 때 뷰포트 높이가 줄어들므로 이를 감지
+      const currentHeight = window.innerHeight;
+      const initialHeight = window.outerHeight;
+      setKeyboardHeight(initialHeight - currentHeight);
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // 초기 실행 시에도 높이 설정
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (chatbotRef.current && !chatbotRef.current.contains(e.target as Node)) {
         closeChatbot();
@@ -106,10 +122,11 @@ const Chatbot: React.FC = () => {
         >
           <div
             ref={chatbotRef}
-            className={`w-[430px] h-3/4 md:h-3/4 bg-customChatBackground shadow-lg border border-gray-300 rounded-t-lg flex flex-col transform ${
+            className={`w-[430px] max-h-[85vh] md:h-[800px] bg-customChatBackground shadow-lg border border-gray-300 rounded-t-lg flex flex-col transform ${
               isAnimating ? 'animate-slide-down' : 'animate-slide-up'
             }`}
             onClick={(e) => e.stopPropagation()} // 내부 콘텐츠 클릭 시 이벤트 전파 차단
+            style={{ minHeight: `calc(85vh - ${keyboardHeight}px)`, paddingBottom: keyboardHeight }} // 기본 높이를 설정하고 키보드 높이만큼 패딩 추가
           >
             <div className="flex-1 p-4 overflow-y-auto">
               {messages.map((message, index) => (
@@ -156,7 +173,7 @@ const Chatbot: React.FC = () => {
               )}
               <div ref={messagesEndRef} />
             </div>
-            <div className="relative w-full mb-10">
+            <div className="relative w-full mt-1">
               <div className="mx-4">
                 <input
                   type="text"
