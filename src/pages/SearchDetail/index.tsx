@@ -2,7 +2,7 @@ import Layout from '@/components/layout/layout';
 // import { useParams } from 'react-router-dom';
 import Dot from "@/assets/SearchDetail/Dot.svg"
 import VeryBad from '@/assets/SearchDetail/FoodValue/VeryBad.svg'
-import Bad from '@/assets/SearchDetail/FoodValue/Bad.svg'
+import Bad from '@/assets/SearchDetail/FoodValue/bad.svg'
 import Soso from '@/assets/SearchDetail/FoodValue/Soso.svg'
 import Good from '@/assets/SearchDetail/FoodValue/Good.svg'
 import VeryGood from '@/assets/SearchDetail/FoodValue/VeryGood.svg'
