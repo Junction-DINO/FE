@@ -1,11 +1,16 @@
 import Layout from '@/components/layout/layout';
 // import { useParams } from 'react-router-dom';
 import Dot from "@/assets/SearchDetail/Dot.svg"
-import Bad from '@/assets/SearchDetail/FoodValue/bad.svg'
+import VeryBad from '@/assets/SearchDetail/FoodValue/VeryBad.svg'
+import Bad from '@/assets/SearchDetail/FoodValue/Bad.svg'
+import Soso from '@/assets/SearchDetail/FoodValue/Soso.svg'
+import Good from '@/assets/SearchDetail/FoodValue/Good.svg'
+import VeryGood from '@/assets/SearchDetail/FoodValue/VeryGood.svg'
 import Ask from '@/assets/SearchDetail/Ask.svg'
 
 import { calculateNutrientPercentage } from '@/utils/caculateNutrientPercent';
 import Hr from '@/components/SearchDetail/Hr';
+
 interface SearchDetailDTO {
   foodCode: string;
   foodName: string;
@@ -76,13 +81,6 @@ const SearchDetail = () => {
     manufacturerName: 'a',
   };
 
-  // const dangerList = ['vitaminAμgRAE', 'vitaminDμg', 'ironMg', 'sodiumMg', 'saturatedFattyAcidG', 'transFattyAcidG'];
-
-  // const isUnhealthy = dangerList.some(nutrient => (dummyData[nutrient as keyof SearchDetailDTO] ?? 0) === 0);
-
-  // const safetyList = ['proteinG', 'ironMg', 'vitaminCMg', 'dietaryFiberG', 'potassiumMg'];
-
-  // const ishealthy = safetyList.some(nutrient => (dummyData[nutrient as keyof SearchDetailDTO] ?? 0) === 0);
   const dangerList = ['vitaminAμgRAE', 'vitaminDμg', 'ironMg', 'sodiumMg', 'saturatedFattyAcidG', 'transFattyAcidG'];
   const safetyList = ['proteinG', 'ironMg', 'vitaminCMg', 'dietaryFiberG', 'potassiumMg'];
   const unuseList = ['foodCode','foodName',    'nutritionStandardAmount']
@@ -109,6 +107,30 @@ const SearchDetail = () => {
     return index; // 최종 지수 반환
   };
 
+  // 표정배열
+
+  const getExpression = (foodIndex: number) : string => {
+    const expressionList = [VeryBad, Bad, Soso, Good, VeryGood];
+  
+    // foodIndex가 -3 ~ -2일 때
+    if (foodIndex >= -3 && foodIndex < -2) {
+      return expressionList[0]; // VeryBad
+    }
+    // foodIndex가 -2 ~ -1일 때
+    else if (foodIndex >= -2 && foodIndex <= -1) {
+      return expressionList[0] // Bad
+    }
+    // 그 외의 경우는 기본값
+    else if (foodIndex === 0){
+      return expressionList[2]
+    }
+    else if (1 <= foodIndex && 3 > foodIndex){
+      return expressionList[3]; // Good
+    }
+    else {
+      return expressionList[4]; // VeryGood
+    }
+  };
   return (
     <Layout>
       <div className="relative w-full h-screen overflow-hidden scroll-hide">
@@ -118,7 +140,8 @@ const SearchDetail = () => {
               <span >
                 {dummyData.foodName}
               </span>
-              <img src={Bad} alt='x' />
+              {}
+              <img src={getExpression(calculateFoodIndex(dummyData))} alt='x' />
             </div>
             <p className='text-customGrey'>
               {dummyData.manufacturerName}
@@ -198,7 +221,7 @@ const SearchDetail = () => {
             })}
           </ul>
   
-          <div className='h-[20px]' />
+          <div className='h-[20px]' />  
   
           <div className='px-6 py-2'>
             <span className='text-[#CECECE]'>Other</span>
