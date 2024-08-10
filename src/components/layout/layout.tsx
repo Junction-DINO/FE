@@ -9,7 +9,7 @@ const Layout = ({ children }: LayoutProp) => {
     <>
       <div className="flex-1  flex-col w-full flex justify-center">
         <main className="max-w-[430px] overflow-hidden scrollbar-hide w-full bg-white overflow-y-scroll overflow-x-hidden relative mx-auto">
-          <Header />
+          {/* <Header /> */}
           <div className="flex-grow bg-white overflow-hidden scrollbar-hide">{children}</div>
         </main>
       </div>
