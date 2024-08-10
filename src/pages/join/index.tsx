@@ -1,8 +1,7 @@
 // src/Join.tsx
 import SetBabyInfo from '@/components/Join/SetBabyInfo';
 import SetNickname from '@/components/Join/SetNickname';
-import Layout from '@/components/layout/layout';
-import React from 'react';
+
 import create from 'zustand';
 
 interface StoreState {

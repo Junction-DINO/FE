@@ -7,7 +7,7 @@ const JoinInput = ({ placeholder,marginTop }: JoinInputProps) => {
   return (
     <>
       <input
-        className={`rounded-lg border border-[#5ECDC7] p-2 
+        className={`rounded-lg border border-[#5ECDC7] p-2 w-full
         focus:outline-none focus:ring-0 focus:border-[#5ECDC7] transition duration-200
         ${marginTop}
         `}
