@@ -32,27 +32,19 @@ module.exports = {
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
         },
-        destructive: {
-          DEFAULT: 'hsl(var(--destructive))',
-          foreground: 'hsl(var(--destructive-foreground))',
-        },
-        muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))',
-        },
-        accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))',
-        },
-        popover: {
-          DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))',
-        },
-        card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))',
-        },
+        customBrown: '#675143',
+        costomMint : '#5ECDC7',
+        customPink : '#EF8491',
+      }, 
+      fontSize: {
+        size24: '24px', // 커스텀 폰트 사이즈 추가
       },
+      fontWeight: {
+        bold: '700', // 또는 'bold'
+        semibold: '600', // 수정
+        medium: '500', // 수정
+    },
+    
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
@@ -75,11 +67,11 @@ module.exports = {
     },
     fontFamily: {
       Pretendard: ['Pretendard'],
+      Roboto: ['Roboto', 'sans-serif'],
     },
   },
   plugins: [
     require('tailwindcss-animate'),
     require('tailwind-scrollbar-hide'),
-    // ... any other plugins
   ],
 };
