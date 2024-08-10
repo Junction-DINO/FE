@@ -1,25 +1,24 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import useDecodedJWT from "@/hooks/useDecodedJWT/useDecodedJWT"
+// import { useNavigate } from "react-router-dom";
+// import useDecodedJWT from "@/hooks/useDecodedJWT/useDecodedJWT"
 
-const fetchData = async () => {
-  const params = new URLSearchParams(window.location.search);
-  const accessToken = params.get("access");
+// const fetchData = async () => {
+//   const params = new URLSearchParams(window.location.search);
+//   const accessToken = params.get("access");
 
-  if ( accessToken) {
+//   if ( accessToken) {
    
-    localStorage.setItem('accessToken', accessToken);
+//     localStorage.setItem('accessToken', accessToken);
    
-    return true; // tokens are successfully set
-  }
-  return false; // tokens are not set
-};
+//     return true; // tokens are successfully set
+//   }
+//   return false; // tokens are not set
+// };
 
 const Redirect = () => {
-  const navigate = useNavigate();
-  let token = localStorage.getItem('accessToken');
-  const decodedToken = useDecodedJWT(token);
-  const id = decodedToken?.sub;
+  // const navigate = useNavigate();
+  // let token = localStorage.getItem('accessToken');
+  // const decodedToken = useDecodedJWT(token);
+  // const id = decodedToken?.sub;
 
   // useEffect(() => {
   //   const redirectAfterFetch = async () => {
