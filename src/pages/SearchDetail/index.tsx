@@ -1,19 +1,19 @@
 import Layout from '@/components/layout/layout';
 // import { useParams } from 'react-router-dom';
-import Dot from "@/assets/SearchDetail/Dot.svg"
 import VeryBad from '@/assets/SearchDetail/FoodValue/VeryBad.svg'
 import Bad from '@/assets/SearchDetail/FoodValue/bad.svg'
 import Soso from '@/assets/SearchDetail/FoodValue/Soso.svg'
 import Good from '@/assets/SearchDetail/FoodValue/Good.svg'
 import VeryGood from '@/assets/SearchDetail/FoodValue/VeryGood.svg'
 import Ask from '@/assets/SearchDetail/Ask.svg'
-
-import { calculateNutrientPercentage } from '@/utils/caculateNutrientPercent';
 import Hr from '@/components/SearchDetail/Hr';
 
 import Back from '@/assets/SearchDetail/Back.svg'
 import { useNavigate } from 'react-router-dom';
-interface SearchDetailDTO {
+import Nutrition from '@/components/SearchDetail/Nutrition';
+import calculateFoodIndex from '@/utils/calculateFoodIndex/calculateFoodIndex';
+
+export interface SearchDetailDTO {
   foodCode: string;
   foodName: string;
   nutritionStandardAmount: string;
@@ -85,29 +85,7 @@ const SearchDetail = () => {
 
   const dangerList = ['vitaminAμgRAE', 'vitaminDμg', 'ironMg', 'sodiumMg', 'saturatedFattyAcidG', 'transFattyAcidG'];
   const safetyList = ['proteinG', 'ironMg', 'vitaminCMg', 'dietaryFiberG', 'potassiumMg'];
-  const unuseList = ['foodCode', 'foodName', 'nutritionStandardAmount']
-  const calculateFoodIndex = (data: SearchDetailDTO) => {
-    const dangerList = ['vitaminAμgRAE', 'vitaminDμg', 'ironMg', 'sodiumMg', 'saturatedFattyAcidG', 'transFattyAcidG'];
-    const safetyList = ['proteinG', 'ironMg', 'vitaminCMg', 'dietaryFiberG', 'potassiumMg'];
-
-    let index = 0;
-
-    // 위험 요소 평가
-    dangerList.forEach(nutrient => {
-      if (data[nutrient as keyof SearchDetailDTO] === 0) {
-        index -= 1; // 위험 요소가 있으면 -1
-      }
-    });
-
-    // 안전 요소 평가
-    safetyList.forEach(nutrient => {
-      if (data[nutrient as keyof SearchDetailDTO] === 0) {
-        index += 1; // 안전 요소가 있으면 +1
-      }
-    });
-
-    return index; // 최종 지수 반환
-  };
+  const unuseList = ['foodCode', 'foodName', 'nutritionStandardAmount', 'servingSizeReference', 'foodWeight', 'energyKcal']
 
   // 표정배열
 
@@ -135,6 +113,7 @@ const SearchDetail = () => {
   };
 
   const navigate = useNavigate()
+
   const handleClickBackButton = () => {
     navigate(-1);
   };
@@ -152,7 +131,7 @@ const SearchDetail = () => {
                 {dummyData.foodName}
               </span>
               { }
-              <img src={getExpression(calculateFoodIndex(dummyData))} alt='x' />
+              <img src={getExpression(calculateFoodIndex(dummyData,safetyList,dangerList))} alt='x' />
             </div>
             <p className='text-customGrey'>
               {dummyData.manufacturerName}
@@ -163,38 +142,25 @@ const SearchDetail = () => {
             <div className='mb-2'>
               {dummyData.energyKcal} kcal ({dummyData.foodWeight} g )
             </div>
-            <div className='flex space-x-1 ml-4'>
-              <span className='text-[#FFC01F]'>carbohydrates</span>
-              <img src={Dot} alt='x' />
-              {dummyData.carbohydrateG} ({calculateNutrientPercentage(dummyData?.carbohydrateG, 'carbohydrate')}%)
-            </div>
-
-            <div className='flex space-x-1 ml-4'>
-              <span className='text-[#FFC01F]'>protein</span>
-              <img src={Dot} alt='x' />
-              {dummyData.proteinG} ({calculateNutrientPercentage(dummyData?.proteinG, 'protein')}%)
-            </div>
-
-            <div className='flex space-x-1 ml-4'>
-              <span className='text-[#FFC01F]'>fat</span>
-              <img src={Dot} alt='x' />
-              {dummyData.fatG} ({calculateNutrientPercentage(dummyData?.fatG, 'fat')}%)
-            </div>
+            <Nutrition data={dummyData.carbohydrateG} type="carbohydrate" />
+            <Nutrition data={dummyData.proteinG} type="protein" />
+            <Nutrition data={dummyData.fatG} type="fat" />
             <button className={`absolute bottom-2 right-2 
-             ${calculateFoodIndex(dummyData) < 0 ? 'bg-[#f48187]' :
-                calculateFoodIndex(dummyData) === 0 ? 'bg-[#898A8D]' :
+             ${calculateFoodIndex(dummyData,safetyList,dangerList) < 0 ? 'bg-[#f48187]' :
+                calculateFoodIndex(dummyData,safetyList,dangerList) === 0 ? 'bg-[#898A8D]' :
                   'bg-[#49C09C]'} 
-  rounded-[8px] px-2 py-1 text-[#fff] flex items-center`}>
-              <span className='text-sm font-bold text-[16px]'>Score : {calculateFoodIndex(dummyData)}</span>
+                rounded-[8px] px-2 py-1 text-[#fff] flex items-center`}
+              onClick={() => navigate('/score')}
+            >
+              <span className='text-sm font-bold text-[16px]'>Score : {calculateFoodIndex(dummyData,safetyList,dangerList)}</span>
               <img src={Ask} alt='' className='w-5 h-5 ml-1' />
             </button>
           </div>
 
           <div className='px-6 py-2'>
             <span className='text-[#F6D0D2]'>Cautionary</span>
-            <span className='text-[#CECECE]'> Ingredient </span>
+            <span className='text-[#CECECE]'>Ingredient</span>
           </div>
-          <Hr />
           <ul>
             {dangerList.map((key) => {
               const value = dummyData[key as keyof SearchDetailDTO];
@@ -204,20 +170,26 @@ const SearchDetail = () => {
 
               return isHealthy && (
                 <>
-                  <li className='px-6 py-2' key={key}>
-                    <span className='text-[#F48187]'>{displayKey}</span> : <span> {value} </span> {unit}
+                  <li className='px-6 py-2 flex justify-between' key={key}>
+                    <span className='text-[#F48187]'>{displayKey}</span> <span> {value} {unit} </span>
                   </li>
                   <Hr />
                 </>
               );
             })}
+            {/* li 요소가 하나도 없을 때 표시할 메시지 */}
+            {dangerList.every((key) => {
+              const value = dummyData[key as keyof SearchDetailDTO];
+              return Number(value) <= 0; // 모든 요소가 안전할 경우 true 반환
+            }) && (
+                <li className='px-6 py-2 text-center text-[#F48187]'>There are no results</li>
+              )}
           </ul>
           <div className='h-[20px]' />
           <div className='px-6 py-2'>
             <span className='text-[#B3E5D6]'>Good</span>
             <span className='text-[#CECECE]'> Ingredient </span>
           </div>
-          <Hr />
           <ul>
             {safetyList.map((key) => {
               const value = dummyData[key as keyof SearchDetailDTO];
@@ -227,13 +199,19 @@ const SearchDetail = () => {
 
               return isHealthy && (
                 <>
-                  <li className='px-6 py-2' key={key}>
-                    <span className='text-[#49C09C]'>{displayKey}</span> : <span> {value} </span> {unit}
+                  <li className='px-6 py-2 flex justify-between' key={key}>
+                    <span className='text-[#49C09C]'>{displayKey}</span> <span> {value} {unit}</span>
                   </li>
                   <Hr />
                 </>
               );
             })}
+            {safetyList.every((key) => {
+              const value = dummyData[key as keyof SearchDetailDTO];
+              return Number(value) <= 0; // 모든 요소가 안전할 경우 true 반환
+            }) && (
+                <li className='px-6 py-2 text-center text-[#49C09C]'>There are no results</li>
+              )}
           </ul>
 
           <div className='h-[20px]' />
@@ -242,7 +220,6 @@ const SearchDetail = () => {
             <span className='text-[#CECECE]'>Other</span>
             <span className='text-[#CECECE]'> Ingredient </span>
           </div>
-          <Hr />
           <ul>
             {Object.entries(dummyData).map(([key, value]) => {
               const isDanger = dangerList.includes(key); // 위험 요소 확인
@@ -254,13 +231,14 @@ const SearchDetail = () => {
 
               return isExcluded && value !== 0 && (
                 <>
-                  <li className='px-6 py-2' key={key}>
-                    <span className='text-[#000]'>{displayKey}</span> : <span> {value} </span> {unit}
+                  <li className='px-6 py-2 flex justify-between' key={key}>
+                    <span className='text-[#000]'>{displayKey}</span>  <span> {value} {unit} </span>
                   </li>
                   <Hr />
                 </>
               );
             })}
+             
           </ul>
 
         </div>

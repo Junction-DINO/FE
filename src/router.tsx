@@ -11,6 +11,7 @@ import Join from './pages/join';
 import ImageClassifier from './pages/camera';
 import SearchResults from './pages/search/SearchResult';
 import SearchDetail from './pages/SearchDetail';
+import Score from './pages/score';
 
 const pageRoutes = {
   main: '/',
@@ -21,6 +22,7 @@ const pageRoutes = {
   camera: '/camera',
   search: '/search/:query',
   searchDetail: '/search/detail/:query',
+  score : '/score'
 };
 
 const CommonLayout = () => (
@@ -71,6 +73,14 @@ const router = createBrowserRouter([
     element: <CommonLayout />,
     children: [
       { path: pageRoutes.searchDetail, element: <SearchDetail />, errorElement: <ErrorPage /> },
+
+      { path: '*', element: <NotFoundPage /> },
+    ],
+  },
+  {
+    element: <CommonLayout />,
+    children: [
+      { path: pageRoutes.score, element: <Score />, errorElement: <ErrorPage /> },
 
       { path: '*', element: <NotFoundPage /> },
     ],
