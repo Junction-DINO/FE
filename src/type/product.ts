@@ -1,15 +1,9 @@
-export type Covered = {
-  coveredName: string;
-  diseaseName: string;
-  coveredPrice: string;
-};
-
-export type Product = {
-  productName: string;
-  coveredList: Covered[];
-  productPrice: number;
-  productDate: string;
-  productExp: number;
-  productAge: string;
-  productEtc: string;
+export type Nutrition = {
+  foodName: string; // 식품명
+  manufacturerName: string; // 제조사
+  energyKcal: number; // 칼로리
+  foodWeight: string; // 중량
+  carbohydrateG: number; // 탄수화물
+  proteinG: number; // 단백질
+  fatG: number; //지방
 };
