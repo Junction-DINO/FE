@@ -14,7 +14,7 @@ import Back from '@/assets/SearchDetail/Back.svg';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { selectedProductState } from '@/components/state/selectedProduct';
-interface SearchDetailDTO {
+export interface SearchDetailDTO {
   foodCode: string;
   foodName: string;
   nutritionStandardAmount: string;
