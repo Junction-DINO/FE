@@ -7,8 +7,12 @@ import { useForm } from 'react-hook-form';
 type FormValues = {
   query: string;
 };
+type SearchInputProps = {
+  mt?: string;
+  placeholder?: string;
+};
 
-export function SearchInput() {
+export function SearchInput({ mt = '0px', placeholder = 'Search directly' }: SearchInputProps) {
   const {
     register,
     handleSubmit,
@@ -21,13 +25,15 @@ export function SearchInput() {
     navigate(`/search/${query}`);
   };
   return (
-    <div className="flex w-full items-center space-x-2 shadow-customShadow">
+    <div
+      className={`flex bg-customBackground w-full items-center space-x-2 shadow-customShadow ${mt}`}
+    >
       <form onSubmit={handleSubmit(onSubmit)} className="relative flex w-full mx-4">
         <Input
           type="search"
-          placeholder="Search directly"
+          placeholder={placeholder}
           {...register('query', { required: 'Search query is required' })}
-          className="pr-12 text-xl text-left font-semibold placeholder:text-center placeholder:text-customYellow rounded-2xl py-6"
+          className="pr-12 bg-white text-xl text-left font-semibold placeholder:text-center placeholder:text-customYellow rounded-2xl py-6"
         />
         <Button
           type="submit"
