@@ -87,7 +87,6 @@ const SearchDetail = () => {
   const safetyList = ['proteinG', 'ironMg', 'vitaminCMg', 'dietaryFiberG', 'potassiumMg'];
   const unuseList = ['foodCode', 'foodName', 'nutritionStandardAmount', 'servingSizeReference', 'foodWeight', 'energyKcal']
 
-
   // 표정배열
 
   const getExpression = (foodIndex: number): string => {
@@ -146,8 +145,6 @@ const SearchDetail = () => {
             <Nutrition data={dummyData.carbohydrateG} type="carbohydrate" />
             <Nutrition data={dummyData.proteinG} type="protein" />
             <Nutrition data={dummyData.fatG} type="fat" />
-
-
             <button className={`absolute bottom-2 right-2 
              ${calculateFoodIndex(dummyData,safetyList,dangerList) < 0 ? 'bg-[#f48187]' :
                 calculateFoodIndex(dummyData,safetyList,dangerList) === 0 ? 'bg-[#898A8D]' :
@@ -162,7 +159,7 @@ const SearchDetail = () => {
 
           <div className='px-6 py-2'>
             <span className='text-[#F6D0D2]'>Cautionary</span>
-            <span className='text-[#CECECE]'> Ingredient </span>
+            <span className='text-[#CECECE]'>Ingredient</span>
           </div>
           <ul>
             {dangerList.map((key) => {
