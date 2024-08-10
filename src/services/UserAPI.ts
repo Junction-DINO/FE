@@ -16,16 +16,16 @@ interface UserDataDTO {
   dueDate: string | null; // 예정일 (null 허용)
 }
 
+// 사용자 데이터 가져오기
 export const getUserData = async (token: string): Promise<UserResponseDTO> => {
-  const url = `${import.meta.env.VITE_REACT_APP_SERVER_LOGIN}/api/v1/users`;
+  const url = `${import.meta.env.VITE_REACT_APP_SERVER}/api/v1/users`;
   try {
-    // AxiosResponse<UserResponseDTO>를 사용하여 응답 처리
-    const response: AxiosResponse<UserResponseDTO> = await api.get<UserResponseDTO>(url, {
+    const response: AxiosResponse<UserResponseDTO, any> = await api.get<UserResponseDTO>(url, {
       withCredentials: true,
       headers: {
         'Access-Control-Allow-Credentials': 'true',
         'ngrok-skip-brower-warning': 'true',
-        Authorization: `Bearer ${token}`, // 토큰을 Authorization 헤더에 추가
+        Authorization: `Bearer ${token}`,
       },
     });
     
@@ -36,14 +36,35 @@ export const getUserData = async (token: string): Promise<UserResponseDTO> => {
   }
 };
 
-// 사용 예시
-const fetchUserData = async () => {
+// 사용자 데이터 생성하기
+export const postUserData = async (
+  accessToken: string,
+  name : string,
+  babyName: string ,
+  monthAfterBirth: string | null,
+  dueDate: string | null ,
+): Promise<any> => {
+  const url = `${import.meta.env.VITE_REACT_APP_SERVER}/api/v1/users`;
+  console.log(name,babyName,monthAfterBirth,dueDate)
   try {
-    const token = 'your_token_here'; // 실제 토큰을 여기에 넣어주세요
-    const userData = await getUserData(token); // UserResponseDTO 받기
-    console.log(userData.data); // data에 접근
-    // 예: userData.data.babyName에 접근
+    const response = await api.post(url, {
+      name : name,
+      babyName: babyName,
+      monthAfterbirth: monthAfterBirth,
+      dueDate: dueDate,
+    }, {
+      withCredentials: true,
+      headers: {
+        'Content-Type': `application/json`,
+        'ngrok-skip-browser-warning': '69420',
+        Authorization: `Bearer ${accessToken}`,
+      }, 
+    });
+
+    console.log('Response:', response.data);
   } catch (error) {
-    console.error('사용자 데이터 가져오기 실패:', error);
+    console.error('메시지를 하지 못했습니다:', error);
+    throw new Error('메시지를 하지 못했습니다');
   }
 };
+

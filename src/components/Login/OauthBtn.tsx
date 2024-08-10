@@ -9,7 +9,7 @@ interface OauthBtnProps {
 const OauthBtn = ({ buttonText, iconUrl, background,link, handleLogin }: OauthBtnProps) => {
   return (
     <button
-      className={`w-[90%] flex items-center justify-center text-gray-800 font-semibold py-2 px-4 rounded hover:bg-opacity-80 active:bg-opacity-70 transition duration-300`}
+      className={` flex items-center justify-center text-gray-800 font-semibold py-4 px-[88px] rounded-[40px] hover:bg-opacity-80 active:bg-opacity-70 transition duration-300`}
       style={{ background: background }}
       onClick={()=>handleLogin(link)}
     >

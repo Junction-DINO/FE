@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import useDecodedJWT from "@/hooks/useDecodedJWT/useDecodedJWT";
 import { useEffect } from "react";
 import { getUserData } from "@/services/UserAPI"; // getUserData 함수 import
 
