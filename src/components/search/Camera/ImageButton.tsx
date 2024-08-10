@@ -2,11 +2,13 @@ import React, { useState, useRef } from 'react';
 import ImportImageIcon from '@/assets/importImage.svg';
 import CameraIcon from '@/assets/Camera.svg';
 import { postOCRImage } from '@/services/OcrImageAPI';
+import { useNavigate } from 'react-router-dom';
 
 const ImageSelectButton = () => {
   const [imageData, setImageData] = useState<string | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [isCameraActive, setIsCameraActive] = useState(false);
+  const navigate = useNavigate();
 
   const handleImageImport = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -63,6 +65,11 @@ const ImageSelectButton = () => {
       const response = await postOCRImage({ ocrImage: base64String });
       console.log('OCR Response:', response);
       // OCR API의 응답을 처리하는 로직 추가 (예: 사용자에게 결과 표시)
+      if (response && response.data && response.data.length > 0) {
+        const foodName = response.data[0].foodName;
+        // foodName으로 리디렉션
+        navigate(`/search/${encodeURIComponent(foodName)}`);
+      }
     } catch (error) {
       console.error('Error processing image:', error);
     }

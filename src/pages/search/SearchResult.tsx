@@ -55,7 +55,7 @@ const SearchResults = () => {
                 <NutritionCard key={index} product={product} />
               ))
             ) : (
-              <p>No results found for "{query}".</p>
+              <p className="text-center text-lg">No results found for "{query}".</p>
             )}
           </div>
         </div>
