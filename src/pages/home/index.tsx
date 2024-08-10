@@ -35,16 +35,19 @@ export default function Home() {
                 <p className=""> - {getPregnancyCareText(dueDate).firstText}</p>
                 <p className=""> - {getPregnancyCareText(dueDate).secondText}</p>
               </GridDiv>
-              <div className="grid grid-cols-3 gap-2 row-span-1 h-full">
-                <GridDiv height="h-40" grid="col-span-2">
-                </GridDiv>
-                <GridDiv height="h-40">
-                  <p className="text-customGrey">
-                    Last week’s <br />
-                    score
-                  </p>
-                </GridDiv>
-              </div>
+              <div className="grid grid-cols-[1.7fr_1.3fr] gap-2 row-span-1 h-full">
+  <GridDiv height="h-40" grid="col-span-1"> {/* 첫 번째 그리드 */}
+    <p className=""> - {getPregnancyCareText(dueDate).f1}</p>
+    <p className=""> - {getPregnancyCareText(dueDate).f2}</p>
+    <p className=""> - {getPregnancyCareText(dueDate).f3}</p>
+  </GridDiv>
+  <GridDiv height="h-40"> {/* 두 번째 그리드 */}
+    <p className="text-customGrey">
+      Last week’s <br />
+      score
+    </p>
+  </GridDiv>
+</div>
               <GridDiv height="h-40"></GridDiv>
             </div>
 
