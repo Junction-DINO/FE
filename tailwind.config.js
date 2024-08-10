@@ -37,6 +37,7 @@ module.exports = {
         customYellow: '#F2D077',
         customGrey: '#CECECE', // 수정된 색상 키
         customBackground: '#F2F2F2',
+        customChatBackground: '#EAEAEA',
       },
       boxShadow: {
         customShadow: '0px 0px 20px -8px rgba(0,0,0,0.2)',
