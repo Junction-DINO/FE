@@ -9,6 +9,7 @@ import { Toaster } from './components/ui/toaster';
 import Example from './pages/exmaple';
 import Example2 from './pages/example2';
 import Login from './pages/login';
+import Join from './pages/join';
 import ImageClassifier from './pages/camera';
 import SearchResults from './pages/search/SearchResult';
 
@@ -17,6 +18,7 @@ const pageRoutes = {
   example: '/example',
   example2: '/example2',
   login: '/login',
+  join: '/join',
   camera: '/camera',
   search: '/search/:query',
 };
@@ -68,6 +70,14 @@ const router = createBrowserRouter([
     element: <CommonLayout />,
     children: [
       { path: pageRoutes.login, element: <Login />, errorElement: <ErrorPage /> },
+
+      { path: '*', element: <NotFoundPage /> },
+    ],
+  },
+  {
+    element: <CommonLayout />,
+    children: [
+      { path: pageRoutes.join, element: <Join />, errorElement: <ErrorPage /> },
 
       { path: '*', element: <NotFoundPage /> },
     ],
