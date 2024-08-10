@@ -27,7 +27,7 @@ const Redirect = () => {
         if (userData.data.babyName === null) {
           navigate('/join'); // 빈 경우 join 페이지로 리다이렉트
         } else {
-          // navigate('/'); // 홈 페이지로 리다이렉트
+          navigate('/'); // 홈 페이지로 리다이렉트
         }
       } catch (error) {
         console.error('에러 발생:', error);

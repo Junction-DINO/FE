@@ -11,9 +11,9 @@ interface UserResponseDTO {
 interface UserDataDTO {
   id: number; // 사용자 ID
   name: string; // 사용자 이름
-  babyName: string | null; // 아기 이름 (null 허용)
-  monthAfterBirth: string | null; // 출생 후 개월 수 (null 허용)
-  dueDate: string | null; // 예정일 (null 허용)
+  babyName: string; // 아기 이름 (null 허용)
+  monthAfterBirth: string; // 출생 후 개월 수 (null 허용)
+  dueDate: string; // 예정일 (null 허용)
 }
 
 // 사용자 데이터 가져오기

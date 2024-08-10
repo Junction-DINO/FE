@@ -1,5 +1,5 @@
 interface JoinTextProps {
-    text : string;
+    text? : string;
     align : string;
     marginTop? : string;
     marginBottom? : string;
