@@ -11,10 +11,12 @@ import Join from './pages/join';
 import ImageClassifier from './pages/camera';
 import SearchResults from './pages/search/SearchResult';
 import SearchDetail from './pages/SearchDetail';
+import Redirect from './pages/redirect';
 import Score from './pages/score';
 
 const pageRoutes = {
   main: '/',
+  redirect : '/redirect',
   example: '/example',
   example2: '/example2',
   login: '/login',
@@ -57,6 +59,14 @@ const router = createBrowserRouter([
     element: <CommonLayout />,
     children: [
       { path: pageRoutes.login, element: <Login />, errorElement: <ErrorPage /> },
+
+      { path: '*', element: <NotFoundPage /> },
+    ],
+  },
+  {
+    element: <CommonLayout />,
+    children: [
+      { path: pageRoutes.redirect, element: <Redirect />, errorElement: <ErrorPage /> },
 
       { path: '*', element: <NotFoundPage /> },
     ],

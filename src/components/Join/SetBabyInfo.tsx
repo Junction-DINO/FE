@@ -6,8 +6,12 @@ import DownVector from "@/assets/Join/DownVector.svg";
 import UpVector from "@/assets/Join/UpVector.svg";
 import useJoinStore from "@/store/JoinStore";
 import Back from "@/assets/Join/Back.svg";
+import { postUserData } from "@/services/UserAPI";
+import { useNavigate } from "react-router-dom";
 
 const SetBabyInfo = () => {
+  const navigate = useNavigate();
+  const token = localStorage.getItem('accessToken');
   const { nickname, babyname, setBabyname, dueDate, setDueDate, monthAfterBirth, setMonthAfterBirth, prevPage } = useJoinStore();
 
   const Words = [
@@ -15,17 +19,13 @@ const SetBabyInfo = () => {
     { text: 'your baby\'s information ' },
   ];
 
-  const [showOptions, setShowOptions] = useState(false); // 선택지 표시 여부
-  const [selectedOption, setSelectedOption] = useState("When is the due date"); // 선택한 옵션
+  const [showOptions, setShowOptions] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("When is the due date");
+  const options = ["When is the due date", "Months after birth"];
 
-  const options = [
-    "When is the due date",
-    "Months after birth"
-  ];
-
-  const handleOptionClick = (option: any) => {
-    setSelectedOption(option); // 선택한 옵션 설정
-    setShowOptions(false); // 옵션 선택 후 목록 숨기기
+  const handleOptionClick = (option : any) => {
+    setSelectedOption(option);
+    setShowOptions(false);
   };
 
   useEffect(() => {
@@ -33,35 +33,41 @@ const SetBabyInfo = () => {
     setDueDate('');
   }, [selectedOption]);
 
-  const handleNext = () => {
-    // 다음 단계로 넘어가는 로직 추가
+const handleNext = async () => {
     if (nickname && babyname && (dueDate.length === 10 || monthAfterBirth)) {
-      console.log(nickname, babyname, dueDate, monthAfterBirth)
-    }
-    else {
-      alert('Not enough field')
+      try {
+        const response = await postUserData(String(token), nickname, babyname, monthAfterBirth,dueDate );
+        navigate('/')
+        console.log('사용자 데이터 생성 성공:', response);
+        // 다음 단계로 이동하거나 성공 메시지 표시
+      } catch (error) {
+        console.error('사용자 데이터 생성 실패:', error);
+        alert('사용자 데이터 생성에 실패했습니다. 다시 시도해 주세요.');
+      }
+    } else {
+      alert('모든 필드를 올바르게 입력해 주세요.');
     }
   };
+
 
   return (
     <Layout>
       <div className="flex flex-col h-screen px-7">
-
         <div className="mt-[10%] mb-[120px]">
           <img
-            className='cursor-pointer mb-[15%] '
+            className='cursor-pointer mb-[15%]'
             onClick={prevPage}
             src={Back} alt='x' />
           {Words.map((words, index) => (
             <JoinText key={index} text={words.text} align='' />
           ))}
         </div>
-        <div className="">
+        <div>
           <p className={`text-costomMint`}>What’s the baby’s name</p>
           <JoinInput
             placeholder="name"
-            value={babyname} // 상태를 JoinInput에 전달
-            onChange={(e) => setBabyname(e.target.value)} // 상태 업데이트
+            value={babyname}
+            onChange={(e) => setBabyname(e.target.value)}
           />
         </div>
 
@@ -77,12 +83,12 @@ const SetBabyInfo = () => {
           {showOptions && (
             <div>
               {options
-                .filter(option => option !== selectedOption) // 선택되지 않은 옵션만 필터링
+                .filter(option => option !== selectedOption)
                 .map((option, index) => (
                   <p
                     key={index}
                     className={`text-[#D8D8D8] mx-6`}
-                    style={{ cursor: 'pointer', color: 'black' }} // 기본 색상
+                    style={{ cursor: 'pointer', color: 'black' }}
                     onClick={() => handleOptionClick(option)}
                   >
                     {option}
@@ -94,8 +100,8 @@ const SetBabyInfo = () => {
         {selectedOption === 'When is the due date' ?
           <JoinInput
             placeholder="due date (format: YYYY-MM-DD)"
-            value={dueDate} // 상태를 JoinInput에 전달
-            onChange={(e) => setDueDate(e.target.value)} // 상태 업데이트
+            value={dueDate}
+            onChange={(e) => setDueDate(e.target.value)}
           />
           :
           <JoinInput
@@ -103,7 +109,6 @@ const SetBabyInfo = () => {
             value={monthAfterBirth}
             onChange={(e) => {
               const value = e.target.value;
-              // 숫자만 허용
               if (/^\d*$/.test(value)) {
                 setMonthAfterBirth(value);
               }
