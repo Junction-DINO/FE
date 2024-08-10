@@ -1,46 +1,46 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import SearchIcon from '@/assets/search.svg';
+import { useForm } from 'react-hook-form';
+
+type FormValues = {
+  query: string;
+};
 
 export function SearchInput() {
-  const [query, setQuery] = useState('');
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>();
   const navigate = useNavigate();
 
-  const handleSearch = () => {
-    if (query.trim()) {
-      navigate(`/search/${query}`);
-    }
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      handleSearch();
-    }
+  const onSubmit = (data: FormValues) => {
+    const { query } = data;
+    navigate(`/search/${query}`);
   };
   return (
-    <div className="flex w-full  items-center space-x-2">
-      <div className="relative flex w-full">
+    <div className="flex w-full items-center space-x-2 shadow-customShadow">
+      <form onSubmit={handleSubmit(onSubmit)} className="relative flex w-full mx-4">
         <Input
           type="search"
-          placeholder="Search"
-          value={query}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
-          className="pr-12"
+          placeholder="Search directly"
+          {...register('query', { required: 'Search query is required' })}
+          className="pr-12 text-xl text-left font-semibold placeholder:text-center placeholder:text-customYellow rounded-2xl py-6"
         />
         <Button
           type="submit"
-          onClick={handleSearch}
-          className="bg-white absolute inset-y-0 right-0 flex items-center px-3"
+          className="bg-customYellow w-[40px] h-[40px] rounded-full absolute inset-y-1 right-0 flex items-center justify-center mr-2"
         >
-          ⭕
+          <img src={SearchIcon} alt="search" className="max-w-5" />
         </Button>
-      </div>
+        {errors.query && (
+          <p className="text-red-500 text-sm absolute left-0 bottom-[-20px]">
+            {errors.query.message}
+          </p>
+        )}
+      </form>
     </div>
   );
 }
