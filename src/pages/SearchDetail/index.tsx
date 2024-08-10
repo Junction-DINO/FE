@@ -71,11 +71,11 @@ const SearchDetail = () => {
     manufacturerName:'a',
   };
 
-  const dangerList = ['vitaminAμgRAE', 'vitaminDμg', 'ironMg', 'sodiumMg', 'saturatedFattyAcidG', 'transFattyAcidG'];
+  // const dangerList = ['vitaminAμgRAE', 'vitaminDμg', 'ironMg', 'sodiumMg', 'saturatedFattyAcidG', 'transFattyAcidG'];
 
   // const isUnhealthy = dangerList.some(nutrient => (dummyData[nutrient as keyof SearchDetailDTO] ?? 0) === 0);
 
-  const safetyList = ['proteinG', 'ironMg', 'vitaminCMg', 'dietaryFiberG', 'potassiumMg'];
+  // const safetyList = ['proteinG', 'ironMg', 'vitaminCMg', 'dietaryFiberG', 'potassiumMg'];
 
   // const ishealthy = safetyList.some(nutrient => (dummyData[nutrient as keyof SearchDetailDTO] ?? 0) === 0);
 
