@@ -188,9 +188,10 @@ const SearchDetail = () => {
               {dummyData.fatG} ({calculateNutrientPercentage(dummyData?.fatG, 'fat')}%)
             </div>
             <button
+              onClick={()=>navigate('/score')}
               className={`absolute bottom-2 right-2 
              ${
-               calculateFoodIndex(dummyData) < 0
+               calculateFoodIndex(dummyData) < 0  
                  ? 'bg-[#f48187]'
                  : calculateFoodIndex(dummyData) === 0
                    ? 'bg-[#898A8D]'
