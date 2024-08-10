@@ -8,7 +8,7 @@ interface JoinTextProps {
 const JoinText = ({text,align,marginTop,marginBottom} : JoinTextProps) => {
     return (
         <>
-            <p className={`text-customBrown text-size24 ${align} ${marginTop} ${marginBottom} font-semibold`}>{text}</p>
+            <p className={`text-customBrown text-size24 ${align} ${marginTop} ${marginBottom} font-semibold leading-6`}>{text}</p>
         </>
     )
 }

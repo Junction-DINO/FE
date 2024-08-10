@@ -7,6 +7,13 @@ interface StoreState {
   prevPage: () => void;
   nickname: string;
   setNickname: (nickname: string) => void;
+  babyname : string;
+  setBabyname: (babyname: string) => void;
+  dueDate :string
+  setDueDate: (dueDate: string) => void;
+  monthAfterBirth: string;
+  setMonthAfterBirth: (monthAfterBirth: string) => void;
+
 }
 
 const useJoinStore = create<StoreState>((set) => ({
@@ -15,6 +22,13 @@ const useJoinStore = create<StoreState>((set) => ({
   prevPage: () => set((state) => ({ currentPage: Math.max(state.currentPage - 1, 1) })),
   nickname: '',
   setNickname: (nickname) => set({ nickname }),
+  babyname: '',
+  setBabyname: (babyname) => set({ babyname }),
+  dueDate : '',
+  setDueDate: (dueDate) => set({ dueDate }),
+  monthAfterBirth: '',
+  setMonthAfterBirth: (monthAfterBirth) => set({ monthAfterBirth }),
+
 }));
 
 export default useJoinStore;

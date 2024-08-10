@@ -30,7 +30,7 @@ const SetNickname = () => {
         <JoinText
           text='Welcom !' align='text-center' marginTop='mt-[20%]' marginBottom='mb-[36px]' />
 
-        <div className="flex justify-center mb-[80px]"> {/* 이미지를 감싸는 div에 Flexbox 추가 */}
+        <div className="flex justify-center mb-[60px]"> {/* 이미지를 감싸는 div에 Flexbox 추가 */}
           <img
             className="w-[140px] h-[150px]"
             src={WelcomLogo}
@@ -50,7 +50,7 @@ const SetNickname = () => {
         />
       </div>
       <button className={`fixed bottom-10 left-0 right-0 mx-auto max-w-[430px] text-center cursor-pointer py-[18px] px-[42px]
-    ${nickname ? 'bg-customPink text-white' : 'bg-[#FFF] text-customPink border border-[#EF8491] opacity-50'}
+    ${nickname ? 'bg-customPink text-white hover:bg-opacity-80 active:bg-opacity-70' : 'bg-[#FFF] text-customPink border border-[#EF8491] opacity-50'}
     w-[124px] h-[60px] flex items-center justify-center rounded-[40px]`}
         onClick={handleNext}
       >
