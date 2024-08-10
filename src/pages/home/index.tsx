@@ -1,3 +1,4 @@
+import ImageSelectButton from '@/components/Camera/ImageButton';
 import Chatbot from '@/components/chatbot/ChatBox';
 import { SearchInput } from '@/components/search/SearchInput';
 
@@ -9,6 +10,7 @@ export default function Home() {
           <>
             <Chatbot />
             <SearchInput />
+            <ImageSelectButton />
           </>
         </div>
       </main>

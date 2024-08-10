@@ -35,6 +35,10 @@ module.exports = {
         customBrown: '#675143',
         customMint: '#5ECDC7',
         customPink: '#EF8491',
+        customYellow: '#F2D077',
+      },
+      boxShadow: {
+        customShadow: '0px 0px 20px -8px rgba(0,0,0,0.2)',
       },
       fontSize: {
         size24: '24px', // 커스텀 폰트 사이즈 추가

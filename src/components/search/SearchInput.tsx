@@ -21,17 +21,17 @@ export function SearchInput() {
     navigate(`/search/${query}`);
   };
   return (
-    <div className="flex w-full items-center space-x-2 mt-10">
+    <div className="flex w-full items-center space-x-2 mt-10 shadow-customShadow">
       <form onSubmit={handleSubmit(onSubmit)} className="relative flex w-full mx-4">
         <Input
           type="search"
           placeholder="Search directly"
           {...register('query', { required: 'Search query is required' })}
-          className="pr-12 text-left placeholder:text-center rounded-2xl py-6"
+          className="pr-12 text-xl text-left font-semibold placeholder:text-center placeholder:text-customYellow rounded-2xl py-6"
         />
         <Button
           type="submit"
-          className="bg-customMint w-[40px] h-[40px] rounded-full absolute inset-y-1 right-0 flex items-center justify-center mr-2"
+          className="bg-customYellow w-[40px] h-[40px] rounded-full absolute inset-y-1 right-0 flex items-center justify-center mr-2"
         >
           <img src={SearchIcon} alt="search" className="max-w-5" />
         </Button>
