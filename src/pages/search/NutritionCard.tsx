@@ -1,6 +1,8 @@
+import { selectedProductState } from '@/components/state/selectedProduct';
 import { NutritionDTO } from '@/type/product';
 import { calculateNutrientPercentage } from '@/utils/caculateNutrientPercent';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 
 type NutritionCardProps = {
   product: NutritionDTO;
@@ -8,9 +10,13 @@ type NutritionCardProps = {
 
 const NutritionCard = ({ product }: NutritionCardProps) => {
   const navigate = useNavigate();
+  const [, setselectedProduct] = useRecoilState(selectedProductState);
+
   const handleClick = () => {
+    setselectedProduct(product);
     navigate(`/search/detail/${product.id}`);
   };
+
   return (
     <div
       onClick={handleClick}
