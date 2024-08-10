@@ -1,4 +1,4 @@
-import ImageSelectButton from '@/components/Camera/ImageButton';
+import ImageSelectButton from '@/components/search/Camera/ImageButton';
 import Chatbot from '@/components/chatbot/ChatBox';
 import { SearchInput } from '@/components/search/SearchInput';
 import Text from '@/components/common/Text';

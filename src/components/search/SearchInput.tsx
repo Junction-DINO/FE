@@ -25,10 +25,11 @@ export function SearchInput({ mt = '0px', placeholder = 'Search directly' }: Sea
     navigate(`/search/${query}`);
   };
   return (
-    <div
-      className={`flex bg-customBackground w-full items-center space-x-2 shadow-customShadow ${mt}`}
-    >
-      <form onSubmit={handleSubmit(onSubmit)} className="relative flex w-full mx-4">
+    <div className={`flex bg-customBackground w-full items-center space-x-2 ${mt}`}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="relative flex w-full mx-4 bg-customBackground"
+      >
         <Input
           type="search"
           placeholder={placeholder}
