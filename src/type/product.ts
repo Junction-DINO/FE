@@ -1,20 +1,34 @@
-// export type Nutrition = {
-//   foodName: string; // 식품명
-//   nutritionStandardAmount: string; // 기준량
-
-//   manufacturerName: string; // 제조사
-//   energyKcal: number; // 칼로리
-//   foodWeight: string; // 중량
-//   carbohydrateG: number; // 탄수화물
-//   proteinG: number; // 단백질
-//   fatG: number; //지방
-// };
-
-export type Nutrition = {
+export type NutritionDTO = {
+  id: number;
+  foodCode: string;
   foodName: string;
   nutritionStandardAmount: string;
   energyKcal: number;
-  carbohydrateG: number;
+  waterG: number;
   proteinG: number;
   fatG: number;
+  ashG: number;
+  carbohydrateG: number;
+  sugarG: number;
+  dietaryFiberG: number;
+  calciumMg: number;
+  ironMg: number;
+  phosphorusMg: number;
+  potassiumMg: number;
+  sodiumMg: number;
+  vitaminAμgRAE: number;
+  retinolμg: number;
+  betaCaroteneμg: number;
+  thiamineMg: number;
+  riboflavinMg: number;
+  niacinMg: number;
+  vitaminCMg: number;
+  vitaminDμg: number;
+  cholesterolMg: number;
+  saturatedFattyAcidG: number;
+  transFattyAcidG: number;
+  servingSizeReference: string;
+  foodWeight: string;
+  manufacturerName: string;
+  providerName: string;
 };

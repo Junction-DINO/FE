@@ -24,8 +24,9 @@ export default function Home() {
 
                 <p className="text-[#49C09C] mt-7">{'babyname'}</p>
               </div>
-              <div>
+              <div className="relative">
                 <img className="mr-2" src={Love} alt="x" />
+                <Chatbot /> {/* Chatbot 컴포넌트를 이 위치에 추가 */}
               </div>
             </div>
             {/* <SearchInput /> */}
@@ -52,15 +53,12 @@ export default function Home() {
               </div>
               <GridDiv height="h-40"></GridDiv>
             </div>
-            
-            <Chatbot />
-            
           </>
         </div>
-        <div className='fixed bottom-0 w-full max-w-[430px]'>
-            <SearchInput />
-            <ImageSelectButton />
-            </div>
+        <div className="fixed bottom-0 w-full max-w-[430px]">
+          <SearchInput />
+          <ImageSelectButton />
+        </div>
       </main>
     </div>
   );
