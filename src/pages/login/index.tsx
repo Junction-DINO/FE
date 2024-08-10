@@ -5,13 +5,13 @@ const Login = () => {
   const handleLogin = (link : string) => {
     localStorage.removeItem("accessToken");
 
-    window.location.href = `${process.env.REACT_APP_SERVER}/oauth2/authorization/${link}`;
+    window.location.href = `${import.meta.env.VITE_REACT_APP_SERVER_LOGIN}/oauth2/authorization/${link}`;
   };
 
   const OAuthButtonProps = [
     {
       buttonText: 'Continue to Kakao',
-      iconUrl: 'https://www.kakaocdn.net/kakaocorp/brand/kakaologo.png',
+      iconUrl: `@/assets/Login/kakao.svg`,
       background: '#FFC400',
       link: 'kakao',
     },

@@ -35,6 +35,7 @@ module.exports = {
         customBrown: '#675143',
         costomMint : '#5ECDC7',
         customPink : '#EF8491',
+        custionGrey : '#CECECE'
       }, 
       fontSize: {
         size24: '24px', // 커스텀 폰트 사이즈 추가
@@ -43,6 +44,9 @@ module.exports = {
         bold: '700', // 또는 'bold'
         semibold: '600', // 수정
         medium: '500', // 수정
+    },
+    boxShadow: {
+      'GridDiv': '0px 0px 28px -12px rgba(0, 0, 0, 0.16)',
     },
     
       borderRadius: {
