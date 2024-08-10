@@ -7,6 +7,7 @@ export const sendMessageToOpenAI = async (message: string) => {
     'https://api.openai.com/v1/chat/completions',
     {
       model: 'gpt-4o-mini',
+      // model: 'gpt-4o',
       messages: [{ role: 'user', content: message }],
     },
     {

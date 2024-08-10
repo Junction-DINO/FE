@@ -1,18 +1,27 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { sendMessageToOpenAI } from '@/services/openai';
 import { ReactTyped } from 'react-typed';
+import Spinner from '@/assets/Spinner.gif';
 
 const Chatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<{ sender: string; text: string }[]>([]);
   const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const chatbotRef = useRef<HTMLDivElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const toggleChatbot = () => {
     setIsOpen(!isOpen);
     if (!isOpen && inputRef.current) {
       inputRef.current.focus();
+    }
+  };
+
+  const scrollToBottom = () => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -24,9 +33,9 @@ const Chatbot: React.FC = () => {
     if (input.trim() === '') return;
 
     const userMessage = { sender: 'user', text: input };
-
     setMessages((prevMessages) => [...prevMessages, userMessage]);
     setInput('');
+    setIsLoading(true);
 
     try {
       const botResponse = await sendMessageToOpenAI(input);
@@ -43,6 +52,8 @@ const Chatbot: React.FC = () => {
         ...prevMessages,
         { sender: 'bot', text: '오류가 발생했습니다. 다시 시도해주세요.' },
       ]);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -64,6 +75,10 @@ const Chatbot: React.FC = () => {
     };
   }, [chatbotRef]);
 
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   return (
     <div className="relative">
       <button
@@ -73,7 +88,6 @@ const Chatbot: React.FC = () => {
         {isOpen ? '닫기' : '챗봇 열기'}
       </button>
 
-      {/* 챗봇 창 */}
       {isOpen && (
         <div
           ref={chatbotRef}
@@ -89,13 +103,32 @@ const Chatbot: React.FC = () => {
                   className={`inline-block p-2 rounded-lg ${message.sender === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}
                 >
                   {message.sender === 'bot' ? (
-                    <ReactTyped strings={[message.text]} typeSpeed={40} showCursor={false} />
+                    <>
+                      <ReactTyped
+                        strings={[message.text]}
+                        typeSpeed={40}
+                        showCursor={false}
+                        onStringTyped={scrollToBottom} // 각 문자열이 타이핑될 때마다 스크롤
+                        onComplete={scrollToBottom} // 타이핑이 완료되면 스크롤
+                      />
+                      {isLoading && (
+                        <img src={Spinner} alt="Loading..." className="inline-block ml-2 w-4 h-4" />
+                      )}
+                    </>
                   ) : (
                     message.text
                   )}
                 </span>
               </div>
             ))}
+            {isLoading && (
+              <div className="text-left mb-2">
+                <span className="inline-block p-2 rounded-lg text-black">
+                  <img src={Spinner} alt="Loading..." className="inline-block w-4 h-4" />
+                </span>
+              </div>
+            )}
+            <div ref={messagesEndRef} /> {/* 스크롤 끝을 표시하는 div */}
           </div>
           <div className="p-2 border-t border-gray-300">
             <input
