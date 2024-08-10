@@ -1,16 +1,25 @@
 import OauthBtn from "@/components/Login/OauthBtn";
 
 const Login = () => {
+
+  const handleLogin = (link : string) => {
+    localStorage.removeItem("accessToken");
+
+    window.location.href = `${import.meta.env.VITE_REACT_APP_SERVER_LOGIN}/oauth2/authorization/${link}`;
+  };
+
   const OAuthButtonProps = [
     {
-      buttonText: '카카오로 로그인하기',
-      iconUrl: 'https://www.kakaocdn.net/kakaocorp/brand/kakaologo.png',
-      background: '#FFC400'
+      buttonText: 'Continue to Kakao',
+      iconUrl: `@/assets/Login/kakao.svg`,
+      background: '#FFC400',
+      link: 'kakao',
     },
     {
-      buttonText: '구글로 로그인하기',
+      buttonText: 'Continue to Google',
       iconUrl: 'https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg',
-      background: '#fff'
+      background: '#fff',
+      link: 'google',
     }
   ];
 
@@ -24,6 +33,8 @@ const Login = () => {
               buttonText={props.buttonText}
               iconUrl={props.iconUrl}
               background={props.background}
+              link={props.link}
+              handleLogin={handleLogin}
             />
           ))}
         </div>
