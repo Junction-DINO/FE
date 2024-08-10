@@ -6,7 +6,7 @@ interface GetTermsDataParams {
 }
 
 export const getNutritionData = async ({ query }: GetTermsDataParams): Promise<NutritionDTO[]> => {
-  const url = `https://e44f-211-168-232-133.ngrok-free.app/api/v1/search?q=${query}`;
+  const url = `${import.meta.env.VITE_REACT_APP_SERVER}/api/v1/search?q=${query}`;
   try {
     const { data } = await api.get<{ data: NutritionDTO[] }>(url, {
       headers: {

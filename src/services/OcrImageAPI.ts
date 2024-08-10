@@ -18,7 +18,7 @@ type OCRResponse = {
 
 export const postOCRImage = async (OcrData: OCRImageDTO): Promise<OCRResponse> => {
   const formData = new FormData();
-  const url = `https://e44f-211-168-232-133.ngrok-free.app/api/v1/search/ocr`;
+  const url = `${import.meta.env.VITE_REACT_APP_SERVER}/api/v1/search/ocr`;
 
   if (OcrData.ocrImage && OcrData.ocrImage.includes(',')) {
     const contentType = OcrData.ocrImage.split(';')[0].split(':')[1];
