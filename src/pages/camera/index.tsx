@@ -7,7 +7,6 @@ const ImageClassifier: React.FC = () => {
   const figures = useRef<HTMLDivElement | null>(null);
   const [net, setNet] = useState<mobilenet.MobileNet | null>(null);
 
-  // Load the model on component mount
   useEffect(() => {
     const loadModel = async () => {
       const loadedNet = await mobilenet.load();
@@ -17,7 +16,6 @@ const ImageClassifier: React.FC = () => {
     loadModel();
   }, []);
 
-  // Initialize the webcam stream
   useEffect(() => {
     const setupCamera = async () => {
       if (camera.current) {
