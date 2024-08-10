@@ -1,6 +1,6 @@
-import ImageSelectButton from '@/components/Camera/ImageButton';
+import ImageSelectButton from '@/components/search/Camera/ImageButton';
 import Chatbot from '@/components/chatbot/ChatBox';
-// import { SearchInput } from '@/components/search/SearchInput';
+import { SearchInput } from '@/components/search/SearchInput';
 import Text from '@/components/common/Text';
 import { useState } from 'react';
 import Love from '@/assets/Home/Love.svg';
@@ -11,7 +11,6 @@ export default function Home() {
 
   return (
     <div className="flex-1 flex-col w-full flex justify-center h-auto scrollbar-hide overflow-y-auto">
-      {' '}
       {/* overflow-y-auto로 수정 */}
       <main className="max-w-[430px] w-full bg-[#FBFBFB] relative mx-auto pb-[180px] ">
         <div className="relative w-full h-auto overflow-hidden px-4">
@@ -55,7 +54,7 @@ export default function Home() {
             </div>
 
             <Chatbot />
-            {/* <SearchInput /> */}
+            <SearchInput />
             <ImageSelectButton />
           </>
         </div>
