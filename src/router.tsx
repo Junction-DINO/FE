@@ -10,13 +10,15 @@ import Example from './pages/exmaple';
 import Example2 from './pages/example2';
 import Login from './pages/login';
 import ImageClassifier from './pages/camera';
+import SearchResults from './pages/search/SearchResult';
 
 const pageRoutes = {
   main: '/',
   example: '/example',
   example2: '/example2',
-  login : '/login',
+  login: '/login',
   camera: '/camera',
+  search: '/search/:query',
 };
 
 const CommonLayout = () => (
@@ -33,6 +35,7 @@ const router = createBrowserRouter([
     element: <CommonLayout />,
     children: [
       { path: pageRoutes.main, element: <Home />, errorElement: <ErrorPage /> },
+      { path: pageRoutes.search, element: <SearchResults />, errorElement: <ErrorPage /> },
 
       { path: '*', element: <NotFoundPage /> },
     ],
@@ -56,7 +59,6 @@ const router = createBrowserRouter([
   {
     element: <CommonLayout />,
     children: [
-
       { path: pageRoutes.camera, element: <ImageClassifier />, errorElement: <ErrorPage /> },
 
       { path: '*', element: <NotFoundPage /> },
