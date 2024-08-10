@@ -1,6 +1,5 @@
 import Layout from '@/components/layout/layout';
 // import { useParams } from 'react-router-dom';
-import Dot from "@/assets/SearchDetail/Dot.svg"
 import VeryBad from '@/assets/SearchDetail/FoodValue/VeryBad.svg'
 import Bad from '@/assets/SearchDetail/FoodValue/bad.svg'
 import Soso from '@/assets/SearchDetail/FoodValue/Soso.svg'
@@ -13,8 +12,9 @@ import Hr from '@/components/SearchDetail/Hr';
 
 import Back from '@/assets/SearchDetail/Back.svg'
 import { useNavigate } from 'react-router-dom';
+import Nutrition from '@/components/SearchDetail/Nutrition';
 
-interface SearchDetailDTO {
+export interface SearchDetailDTO {
   foodCode: string;
   foodName: string;
   nutritionStandardAmount: string;
@@ -165,23 +165,11 @@ const SearchDetail = () => {
             <div className='mb-2'>
               {dummyData.energyKcal} kcal ({dummyData.foodWeight} g )
             </div>
-            <div className='flex space-x-1 ml-4'>
-              <span className='text-[#FFC01F]'>carbohydrates</span>
-              <img className='mx-1' src={Dot} alt='x' />
-              <span className='text-customGrey'>{dummyData.carbohydrateG} ({calculateNutrientPercentage(dummyData?.carbohydrateG, 'carbohydrate')}%)</span>
-            </div>
+            <Nutrition data={dummyData.carbohydrateG} type="carbohydrate" />
+            <Nutrition data={dummyData.proteinG} type="protein" />
+            <Nutrition data={dummyData.fatG} type="fat" />
 
-            <div className='flex space-x-1 ml-4'>
-              <span className='text-[#FFC01F] '>protein</span>
-              <img className='mx-1' src={Dot} alt='x' />
-              <span className='text-customGrey'>{dummyData.proteinG} ({calculateNutrientPercentage(dummyData?.proteinG, 'protein')}%)</span>
-            </div>
 
-            <div className='flex space-x-1 ml-4'>
-              <span className='text-[#FFC01F]'>fat</span>
-              <img className='mx-1' src={Dot} alt='x' />
-              <span className='text-customGrey'> {dummyData.fatG} ({calculateNutrientPercentage(dummyData?.fatG, 'fat')}%)</span>
-            </div>
             <button className={`absolute bottom-2 right-2 
              ${calculateFoodIndex(dummyData) < 0 ? 'bg-[#f48187]' :
                 calculateFoodIndex(dummyData) === 0 ? 'bg-[#898A8D]' :
