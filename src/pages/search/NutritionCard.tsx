@@ -1,13 +1,21 @@
 import { NutritionDTO } from '@/type/product';
 import { calculateNutrientPercentage } from '@/utils/caculateNutrientPercent';
+import { useNavigate } from 'react-router-dom';
 
 type NutritionCardProps = {
   product: NutritionDTO;
 };
 
 const NutritionCard = ({ product }: NutritionCardProps) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/search/detail/${product.id}`);
+  };
   return (
-    <div className="border-b py-4 px-4 bg-white rounded-lg shadow-md mb-2">
+    <div
+      onClick={handleClick}
+      className="cursor-pointer border-b py-4 px-4 bg-white rounded-lg shadow-md mb-2"
+    >
       <div className="flex justify-between items-center">
         <h3 className="font-semibold text-gray-800">{product.foodName}</h3>
         <span className="text-gray-400">{product.manufacturerName}</span>
