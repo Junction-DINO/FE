@@ -1,5 +1,5 @@
 import Layout from '@/components/layout/layout';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 
 interface SearchDetailDTO {
   foodCode: string;
@@ -36,7 +36,7 @@ interface SearchDetailDTO {
 }
 
 const SearchDetail = () => {
-  const { query } = useParams();
+  // const { query } = useParams();
 
   const dummyData: SearchDetailDTO = {
     foodCode: "001",
@@ -73,11 +73,11 @@ const SearchDetail = () => {
 
   const dangerList = ['vitaminAμgRAE', 'vitaminDμg', 'ironMg', 'sodiumMg', 'saturatedFattyAcidG', 'transFattyAcidG'];
 
-  const isUnhealthy = dangerList.some(nutrient => (dummyData[nutrient as keyof SearchDetailDTO] ?? 0) === 0);
+  // const isUnhealthy = dangerList.some(nutrient => (dummyData[nutrient as keyof SearchDetailDTO] ?? 0) === 0);
 
   const safetyList = ['proteinG', 'ironMg', 'vitaminCMg', 'dietaryFiberG', 'potassiumMg'];
 
-  const ishealthy = safetyList.some(nutrient => (dummyData[nutrient as keyof SearchDetailDTO] ?? 0) === 0);
+  // const ishealthy = safetyList.some(nutrient => (dummyData[nutrient as keyof SearchDetailDTO] ?? 0) === 0);
 
   const calculateFoodIndex = (data: SearchDetailDTO) => {
     const dangerList = ['vitaminAμgRAE', 'vitaminDμg', 'ironMg', 'sodiumMg', 'saturatedFattyAcidG', 'transFattyAcidG'];
