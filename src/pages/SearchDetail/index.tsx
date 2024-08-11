@@ -159,7 +159,7 @@ const SearchDetail = () => {
           <div className="flex justify-between p-6">
             <div className="flex space-x-2">
               <img className="cursor-pointer " onClick={handleClickBackButton} src={Back} alt="x" />
-              <span>{dummyData.foodName}</span>
+              <span>{dummyData.foodName.split('_')[1]}</span>
               {}
               <img src={getExpression(calculateFoodIndex(dummyData))} alt="x" />
             </div>

@@ -23,7 +23,7 @@ const NutritionCard = ({ product }: NutritionCardProps) => {
       className="cursor-pointer py-4 px-4 bg-white rounded-lg border-b-2 mb-2"
     >
       <div className="flex justify-between items-center">
-        <h3 className="font-semibold text-black">{product.foodName}</h3>
+        <h3 className="font-semibold text-black">{product.foodName.split('_')[1]}</h3>
         <span className="text-customGrey">{product.manufacturerName}</span>
       </div>
       <div className="text-customGrey mt-1 text-sm">
