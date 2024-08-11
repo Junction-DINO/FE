@@ -75,7 +75,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ position = 'default' }) => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !isLoading) {
       e.preventDefault();
       handleSendMessage();
     }
@@ -191,10 +191,12 @@ const Chatbot: React.FC<ChatbotProps> = ({ position = 'default' }) => {
                   onKeyDown={handleKeyDown}
                   className="w-full p-4 pr-10 border rounded-full"
                   ref={inputRef}
+                  disabled={isLoading} // 입력 필드 비활성화
                 />
                 <button
                   onClick={handleSendMessage}
                   className="absolute right-10 top-1/2 transform -translate-y-1/2"
+                  disabled={isLoading} // 전송 버튼 비활성화
                 >
                   <img src={ChatbotSendButton} alt="Send" className="w-5 h-5" />
                 </button>
