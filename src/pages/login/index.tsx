@@ -2,8 +2,19 @@ import OauthBtn from "@/components/Login/OauthBtn";
 import Logo from "@/assets/Login/Logo.svg";
 import kakao from "@/assets/Login/kakao.svg";
 import google from "@/assets/Login/google.svg";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  
+  const navigate = useNavigate();
+
+  let token = localStorage.getItem('accessToken')
+  useEffect(()=>{
+    if(token) {
+      navigate('/')
+    }
+  },[token])
   const handleLogin = (link: string) => {
     localStorage.removeItem("accessToken");
     window.location.href = `${import.meta.env.VITE_REACT_APP_SERVER}/oauth2/authorization/${link}`;
