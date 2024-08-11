@@ -5,3 +5,4 @@ const getAgeText = (months: string): string => {
     return `${months}${suffix} months old`;
   };
   
+export default getAgeText
