@@ -32,6 +32,7 @@ export default function Home() {
           const data = await getUserData(token); // 사용자 데이터 가져오기
           setUserData(data.data); // 가져온 데이터로 상태 업데이트
         } catch (error) {
+          
           navigate('/login')
           console.error('사용자 데이터 가져오기 실패:', error);
         }
