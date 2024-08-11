@@ -9,7 +9,7 @@ import getPregnancyCareText from '@/utils/getPregnancyCareText/getPregnancyCareT
 import { getUserData } from '@/services/UserAPI';
 import calculatePregnancyWeeks from '@/utils/calculatePregnancyWeeks/calculatePregnancyWeeks';
 import { useNavigate } from 'react-router-dom';
-
+import getAgeText from '@/utils/getAgeText/getAgeText'
 interface UserDataDTO {
   id: number; // 사용자 ID
   name: string; // 사용자 이름
