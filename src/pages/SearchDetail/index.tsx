@@ -155,7 +155,7 @@ const SearchDetail = () => {
       <div className="relative w-full h-screen overflow-hidden scroll-hide">
         <div className="bg-white mt-[10%] w-full h-full rounded-tl-3xl overflow-y-auto">
           {' '}
-          {/* overflow-y-auto 추가 */}
+          {/* overflow-y-auto 추가 dd*/}
           <div className="flex justify-between p-6">
             <div className="flex space-x-2">
               <img className="cursor-pointer " onClick={handleClickBackButton} src={Back} alt="x" />
