@@ -21,7 +21,7 @@ This service empowers pregnant women to make informed dietary choices with confi
   - Google Cloud Vision
 - **FrontEnd**
   - React  
-  - GPT-4o mini OpneAI
+  - GPT-4o mini OpenAI
   - Netlify
 
 
